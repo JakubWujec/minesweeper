@@ -1,0 +1,54 @@
+body{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.form-wrapper{
+  padding: 3rem 0;
+}
+
+.game-window{
+  background: lightgray;
+  width: 90%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+}
+
+.top-bar{
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-around;
+  background-color: lightgray;
+  border: lightslategray 2px solid;
+  border-bottom: white 2px solid;
+  border-right: white 2px solid;
+  padding: 0.2rem 0;
+}
+
+.mines-counter{
+  display: flex;
+  flex-direction: row;
+}
+
+.canvas-container{
+  margin-top: 1rem;
+}
+
+.canvas{
+  border: lightslategray 4px solid;
+  border-bottom: white 4px solid;
+  border-right: white 4px solid;
+}
+
+.active{
+  background-color: green;
+  border: lightslategray 2px solid;
+  border-bottom: white 2px solid;
+  border-right: white 2px solid;
+}

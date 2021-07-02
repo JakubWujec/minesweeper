@@ -1,24 +1,68 @@
 <!doctype html>
-
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>The HTML5 Herald</title>
-  <meta name="description" content="The HTML5 Herald">
-  <meta name="author" content="SitePoint">
+  <title>The Minesweeper</title>
+  
+  <link rel="stylesheet" href="styles.css">
 
-  <!-- <link rel="stylesheet" href="css/styles.css?v=1.0"> -->
-
+  <script src="./scripts/game/model/model.js" defer></script>
+  <script src="./scripts/game/view/view.js" defer></script>
+  <script src="./scripts/game/controller/controller.js" defer></script>
 </head>
 
 <body>
-  <canvas width="600" height="600" id="canvas"></canvas>
+  <h2>
+    Minesweeper
+  </h2>
 
+  <!-- wybierz rozmiar  -->
+  <div class="form-wrapper">
+    <form id='start-game-form'>
 
-  <script src="./scripts/game/cell.js" defer></script>
-  <script src="./scripts/game/board.js" defer></script>
-  <script src="./scripts/canvas.js" defer></script>
-  <script src="./scripts/app.js" defer></script>
+      <label for='input-x'> x </label>
+      <input id='input-x' type="number" placeholder="8">
+
+      <label for='input-y'>y</label>
+      <input id='input-y' type="number" placeholder="8">
+
+      <label for='input-mines'>mines</label>
+      <input id='input-mines' type="number" placeholder="10">
+
+      <button id='start-button' type="submit"> Start </button>
+    </form>
+  </div>
+
+  <div class="game-window">
+    <div class="top-bar">
+      <button id="flag-button">
+        <img src="./assets/images/flag1.png">
+      </button>
+      <div class="mines-counter">
+        <img src="./assets/images/mine2.png">
+        <p id="mines-counter"></p>
+      </div>
+      
+    </div>
+  
+    <div class="canvas-container">
+      <canvas id="canvas" class="canvas"></canvas>
+    </div>
+   
+
+  </div>
+
+ 
+  
+
+ 
+
+  
+ 
+
 </body>
+
 </html>
