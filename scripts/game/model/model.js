@@ -144,10 +144,12 @@ class Board{
   selectCell(row, col){
     let selectedCell = this.getCellAt(row, col);
     if(selectedCell){
-      if(selectedCell.isCovered()){
-        selectedCell.uncover();
-        if(!selectedCell.hasMine()){
-          this.uncoverUnarmedNeighbours(selectedCell);
+      if(!selectedCell.isFlagged()){
+        if(selectedCell.isCovered()){
+          selectedCell.uncover();
+          if(!selectedCell.hasMine()){
+            this.uncoverUnarmedNeighbours(selectedCell);
+          }
         }
       }
     }
