@@ -6,6 +6,7 @@ class Controller{
     this.view.bindCanvasClicked(this.handleCanvasClick.bind(this));
     this.view.bindToggleFlag(this.handleToggleFlagMode.bind(this));
     this.view.bindStartGame(this.handleStartGame.bind(this));
+    this.view.bindSaveSettings(this.handleSaveSettings.bind(this));
 
     this.flagMode = false;
   }
@@ -47,17 +48,37 @@ class Controller{
     this.view.toggleFlagButton();
   }
 
-  handleStartGame(rows, cols, mines){
-    if(rows > 0 && cols > 0 && mines > 0 && (rows * cols) > mines){
-      this.model = new Model(rows, cols, mines);
-      this.view = new View(rows, cols);
+  handleStartGame(){
+    let settings = this.getSettings();
+    console.log(settings);
+    if(settings.rows > 0 && settings.columns > 0 && settings.mines > 0 && (settings.rows * settings.columns) > settings.mines){
+      this.model = new Model(settings.rows, settings.columns, settings.mines);
+      this.view = new View(settings.rows, settings.columns);
       this.view.displayBoard(this.model.board);
-      this.view.setMinesCounter(0, mines);
+      this.view.setMinesCounter(0, settings.mines);
       if(this.flagMode){
         this.handleToggleFlagMode();
       }
     }
   }
+
+  handleSaveSettings(settings){
+    localStorage.setItem('settings', JSON.stringify(settings));
+  }
+
+  getSettings(){
+    let settings = {
+      rows: 8,
+      columns: 8,
+      mines: 10,
+    }
+    let lsSettings = JSON.parse(localStorage.getItem('settings'));
+    if(lsSettings){
+      settings = lsSettings;
+    }
+    return settings;
+  }
+
 }
 
 

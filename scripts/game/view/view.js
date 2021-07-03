@@ -16,18 +16,63 @@ class View{
     this.canvasLeft = this.canvas.offsetLeft + this.canvas.clientLeft - this.canvas.scrollLeft;
     this.canvasTop = this.canvas.offsetTop + this.canvas.clientTop - this.canvas.scrollTop;
 
-    this.startGameFormElement = document.getElementById('start-game-form');
+    //this.startGameFormElement = document.getElementById('start-game-form');
+    this.saveSettingsButton = document.querySelector('.modal__save');
+    this.startGameButton = document.querySelector('.start-button');
     this.flagButton = document.getElementById('flag-button');
     this.minesCounterElement = document.getElementById('mines-counter');
+    this.settingsButton = document.querySelector('.settings-button');
+    this.modal = document.querySelector('.modal');
+    this.closeModalButton = document.querySelector('.modal__exit');
+    this.backdrop = document.querySelector('.backdrop');
+    this.difficultiesElements = document.querySelectorAll('.modal__difficulty');
+
+
+    this.settingsButton.addEventListener('click', () => {
+      this.openModal();
+    })
+    this.closeModalButton.addEventListener('click', () => {
+      this.closeModal();
+    })
+    this.backdrop.addEventListener('click', () => {
+      this.closeModal();
+    })
+
+    this.levelSettings = {
+      'EASY': {
+        rows: 8,
+        columns: 8,
+        mines: 10
+      }, 
+      'MEDIUM' : {
+        rows: 16,
+        columns: 16,
+        mines: 40
+      },
+      'HARD': {
+        rows: 30,
+        columns: 16,
+        mines: 99
+      }
+    }
+    console.log(this.difficultiesElements);
+    for(let difficultyElement of this.difficultiesElements){
+      difficultyElement.addEventListener('click', () => {
+        document.getElementById('input-x').value = this.levelSettings[difficultyElement.textContent].rows;
+        document.getElementById('input-y').value = this.levelSettings[difficultyElement.textContent].columns;
+        document.getElementById('input-mines').value = this.levelSettings[difficultyElement.textContent].mines; 
+        console.log('ha');
+      });
+    }
   }
 
-  getStartGameFormValues(){
+  getSettingsModalValues(){
     let xValue = document.getElementById('input-x').value;
     let yValue = document.getElementById('input-y').value;
     let minesValue = document.getElementById('input-mines').value;
     return {
-      x: parseInt(xValue),
-      y: parseInt(yValue),
+      rows: parseInt(xValue),
+      columns: parseInt(yValue),
       mines: parseInt(minesValue),
     }
   }
@@ -189,10 +234,16 @@ class View{
   }
 
   bindStartGame(handler){
-    this.startGameFormElement.addEventListener('submit', event => {
-      event.preventDefault()
-      let startFormValues = this.getStartGameFormValues();
-      handler(startFormValues.x, startFormValues.y, startFormValues.mines);
+    this.startGameButton.addEventListener('click', event =>{
+      handler();
+    })
+  }
+
+  bindSaveSettings(handler){
+    this.saveSettingsButton.addEventListener('click', event => {
+      let startFormValues = this.getSettingsModalValues();
+      handler(startFormValues);
+      this.closeModal();
     })
   }
 
@@ -203,12 +254,18 @@ class View{
   toggleFlagButton(){
     this.flagButton.classList.toggle('active');
   }
-  
+
+  openModal(){
+    this.modal.classList.add("open");
+    this.backdrop.classList.add("open");
+  }
+
+  closeModal(){
+    if(this.modal){
+      this.modal.classList.remove("open");
+      this.backdrop.classList.remove("open");
+    }
+  }  
+
 }
-
-
-
-
-
-
 

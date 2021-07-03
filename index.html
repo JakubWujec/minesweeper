@@ -19,22 +19,54 @@
     Minesweeper
   </h2>
 
-  <!-- wybierz rozmiar  -->
-  <div class="form-wrapper">
-    <form id='start-game-form'>
+  <img src="assets/images/settings.png" class="settings-button">
+  <button class="start-button">
+    Start new game
+  </button>
 
-      <label for='input-x'> x </label>
-      <input id='input-x' type="number" placeholder="8">
+  <div class="backdrop">
 
-      <label for='input-y'>y</label>
-      <input id='input-y' type="number" placeholder="8">
-
-      <label for='input-mines'>mines</label>
-      <input id='input-mines' type="number" placeholder="10">
-
-      <button id='start-button' type="submit"> Start </button>
-    </form>
   </div>
+
+  <div class="modal">
+    <div class="modal__header">
+      <div class="modal__title">Settings</div>
+      <img src="assets/images/cancel.png" class="modal__exit">
+    </div>
+  
+    <hr class="modal__line">
+
+    <div class="modal__difficulties">
+      <p class="modal__difficulty">EASY</p>
+      <p class="modal__difficulty">MEDIUM</p>
+      <p class="modal__difficulty">HARD</p>
+    </div>
+
+    <div class="modal__properties">
+      <div class="modal__property">
+        <label for='input-x'> Rows </label>
+        <input id='input-x' type="number" placeholder="8" min="4" max="99">  
+      </div>
+
+      <div class="modal__property">
+        <label for='input-y'> Columns </label>
+        <input id='input-y' type="number" placeholder="8" min="4" max="99"> 
+      </div>
+     
+      <div class="modal__property">
+        <label for='input-mines'>Mines</label>
+        <input id='input-mines' type="number" placeholder="10" min="1" max="99"> 
+      </div>
+    </div>
+    
+    <div class="modal__save-container">
+      <button class="modal__save">
+        Save
+      </button>
+    </div>
+ 
+
+  </div> <!-- end of modal-->
 
   <div class="game-window">
     <div class="top-bar">
@@ -45,7 +77,6 @@
         <img src="./assets/images/mine2.png">
         <p id="mines-counter"></p>
       </div>
-      
     </div>
   
     <div class="canvas-container">
