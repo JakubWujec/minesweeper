@@ -140,6 +140,10 @@ class Board{
     return this.getFilteredCells(cell => cell.isFlagged())
   }
 
+  getCoveredFlaggedCells(){
+    return this.getFilteredCells(cell => cell.isFlagged() && cell.isCovered());
+  }
+
 
   selectCell(row, col){
     let selectedCell = this.getCellAt(row, col);

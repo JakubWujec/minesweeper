@@ -15,18 +15,7 @@
 </head>
 
 <body>
-  <h2>
-    Minesweeper
-  </h2>
-
-  <img src="assets/images/settings.png" class="settings-button">
-  <button class="start-button">
-    Start new game
-  </button>
-
-  <div class="backdrop">
-
-  </div>
+  <div class="backdrop"></div>
 
   <div class="modal">
     <div class="modal__header">
@@ -69,7 +58,11 @@
   </div> <!-- end of modal-->
 
   <div class="game-window">
+    
+    <h2>Minesweeper </h2>
+      
     <div class="top-bar">
+      <button class="start-button">New game</button>
       <button id="flag-button">
         <img src="./assets/images/flag1.png">
       </button>
@@ -77,22 +70,13 @@
         <img src="./assets/images/mine2.png">
         <p id="mines-counter"></p>
       </div>
+      <img src="assets/images/settings.png" class="settings-button">
     </div>
   
     <div class="canvas-container">
       <canvas id="canvas" class="canvas"></canvas>
     </div>
-   
-
-  </div>
-
- 
-  
-
- 
-
-  
- 
+  </div> 
 
 </body>
 

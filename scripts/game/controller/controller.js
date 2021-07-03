@@ -25,7 +25,7 @@ class Controller{
       }
 
       this.view.displayBoard(this.model.board);
-      this.view.setMinesCounter(this.model.board.getFlaggedCells().length, this.model.board.initialNumberOfMines);
+      this.view.setMinesCounter(this.model.board.getCoveredFlaggedCells().length, this.model.board.initialNumberOfMines);
 
       if(this.model.isGameWon()){
         this.handleGameWon();
@@ -81,8 +81,6 @@ class Controller{
 
 }
 
-
 let app = new Controller(new Model(8,8,10), new View(8,8));
-app.handleStartGame(5,5,10);
 app.handleStartGame(8,8,10);
 

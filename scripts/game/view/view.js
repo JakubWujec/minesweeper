@@ -215,8 +215,8 @@ class View{
   }
 
   drawNumberInside(x, y, numberString){
-    this.ctx.fillText(numberString, x + Math.floor(this.BLOCK_SIZE / 2), y + Math.floor(this.BLOCK_SIZE / 2));
-    this.ctx.strokeText(numberString, x + Math.floor(this.BLOCK_SIZE / 2), y + Math.floor(this.BLOCK_SIZE / 2));
+    this.ctx.fillText(numberString, x + 0.4 * this.BLOCK_SIZE, y + 0.6 * this.BLOCK_SIZE);
+    this.ctx.strokeText(numberString, x + 0.4 * this.BLOCK_SIZE, y + 0.6 * this.BLOCK_SIZE);
   }
 
   drawMine(x, y){

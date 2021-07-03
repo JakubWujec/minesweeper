@@ -2,21 +2,21 @@
   box-sizing: border-box;
 }
 
+html{
+  height: 100%;
+}
+
 body{
   font-family: "Montserrat", sans-serif;
   display: flex;
   flex-direction: column;
-  align-items: center;
   width: 100%;
+  height: 100%;
   margin: 0; /* reset default body margin */
 }
 
-.form-wrapper{
-  padding: 3rem 0;
-}
-
 .settings-button{
-  max-width: 2rem;
+  max-width: 3rem;
 }
 
 .game-window{
@@ -26,7 +26,8 @@ body{
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 1rem;
+  padding: 1rem 1rem 2rem 1rem;
+
 }
 
 .top-bar{
@@ -34,6 +35,7 @@ body{
   width: 100%;
   flex-direction: row;
   justify-content: space-around;
+  flex-wrap: wrap;
   background-color: lightgray;
   border: lightslategray 2px solid;
   border-bottom: white 2px solid;
@@ -131,6 +133,10 @@ body{
 .modal__line{
   width: 96%;
   margin: 0.3rem auto;
+}
+
+.modal__difficulty{
+  box-shadow: 2px 2px rgba(0,0,0,0.5);
 }
 
 .backdrop{
