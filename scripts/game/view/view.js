@@ -13,10 +13,6 @@ class View{
       this.calculateRequiredCanvasLength(rows), // height
     );
 
-    this.canvasLeft = this.canvas.offsetLeft + this.canvas.clientLeft - this.canvas.scrollLeft;
-    this.canvasTop = this.canvas.offsetTop + this.canvas.clientTop - this.canvas.scrollTop;
-
-    //this.startGameFormElement = document.getElementById('start-game-form');
     this.saveSettingsButton = document.querySelector('.modal__save');
     this.startGameButton = document.querySelector('.start-button');
     this.flagButton = document.getElementById('flag-button');
@@ -55,7 +51,7 @@ class View{
         mines: 99
       }
     }
-    console.log(this.difficultiesElements);
+    
     for(let difficultyElement of this.difficultiesElements){
       difficultyElement.addEventListener('click', () => {
         document.getElementById('input-x').value = this.levelSettings[difficultyElement.textContent].rows;
@@ -81,6 +77,9 @@ class View{
     this.canvas.width = width;
     this.canvas.height = height;
   }
+
+  get canvasLeft(){ return this.canvas.offsetLeft + this.canvas.clientLeft - this.canvas.scrollLeft;}
+  get canvasTop(){ return this.canvas.offsetTop + this.canvas.clientTop - this.canvas.scrollTop;}
 
   calculateRequiredCanvasLength(cellsInLine){
     return cellsInLine * (this.BLOCK_SIZE + this.SPACE_BETWEEN) + this.SPACE_BETWEEN;
@@ -117,10 +116,11 @@ class View{
     function isBetween(start, end, mid){
       return mid <= end && start <= mid;
     }
+    //let canvas2 = document.querySelector('#canvas');
+
     let clickedX = event.pageX - this.canvasLeft;
-    let clickedY = event.pageY - this.canvasTop;
-    console.log(this.canvasLeft, this.canvasTop);
-    console.log('c', clickedX, clickedY);
+    let clickedY = event.pageY -this.canvasTop;
+
     let col = null;
     let row = null;
     for(let i = 0; i < this.COLUMNS; i++){
