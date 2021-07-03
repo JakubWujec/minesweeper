@@ -21,56 +21,17 @@ class View{
     this.modal = document.querySelector('.modal');
     this.closeModalButton = document.querySelector('.modal__exit');
     this.backdrop = document.querySelector('.backdrop');
+    this.rowsModalInput = document.querySelector('#input-rows')
+    this.columnsModalInput = document.querySelector('#input-columns')
+    this.minesModalInput = document.querySelector('#input-mines');
     this.difficultiesElements = document.querySelectorAll('.modal__difficulty');
 
-
-    this.settingsButton.addEventListener('click', () => {
-      this.openModal();
-    })
     this.closeModalButton.addEventListener('click', () => {
-      this.closeModal();
+      this.closeSettingsModal();
     })
     this.backdrop.addEventListener('click', () => {
-      this.closeModal();
+      this.closeSettingsModal();
     })
-
-    this.levelSettings = {
-      'EASY': {
-        rows: 8,
-        columns: 8,
-        mines: 10
-      }, 
-      'MEDIUM' : {
-        rows: 16,
-        columns: 16,
-        mines: 40
-      },
-      'HARD': {
-        rows: 30,
-        columns: 16,
-        mines: 99
-      }
-    }
-    
-    for(let difficultyElement of this.difficultiesElements){
-      difficultyElement.addEventListener('click', () => {
-        document.getElementById('input-x').value = this.levelSettings[difficultyElement.textContent].rows;
-        document.getElementById('input-y').value = this.levelSettings[difficultyElement.textContent].columns;
-        document.getElementById('input-mines').value = this.levelSettings[difficultyElement.textContent].mines; 
-        console.log('ha');
-      });
-    }
-  }
-
-  getSettingsModalValues(){
-    let xValue = document.getElementById('input-x').value;
-    let yValue = document.getElementById('input-y').value;
-    let minesValue = document.getElementById('input-mines').value;
-    return {
-      rows: parseInt(xValue),
-      columns: parseInt(yValue),
-      mines: parseInt(minesValue),
-    }
   }
 
   setCanvasSize(width, height){
@@ -102,22 +63,10 @@ class View{
   }
 
   getRowAndColOfClick(event){     
-    /* screen
-      ------------>x
-      |           h
-      |           e
-      |           i
-      |           g
-      |           h
-      |           t
-      |y
-      v width
-    */
     function isBetween(start, end, mid){
       return mid <= end && start <= mid;
     }
-    //let canvas2 = document.querySelector('#canvas');
-
+    
     let clickedX = event.pageX - this.canvasLeft;
     let clickedY = event.pageY -this.canvasTop;
 
@@ -229,43 +178,70 @@ class View{
     }
   }
 
+  toggleFlagButton(){
+    this.flagButton.classList.toggle('active');
+  }
+
+  openSettingsModal(){
+    this.modal.classList.add("open");
+    this.backdrop.classList.add("open");
+  }
+
+  getSettingsModalValues(){
+    let rowsValue = this.rowsModalInput.value;
+    let columnsValue = this.columnsModalInput.value;
+    let minesValue = this.minesModalInput.value;
+    return {
+      rows: parseInt(rowsValue),
+      columns: parseInt(columnsValue),
+      mines: parseInt(minesValue),
+    }
+  }
+
+  setSettingsModalValues(rows, columns, mines){
+    this.rowsModalInput.value = rows;
+    this.columnsModalInput.value = columns;
+    this.minesModalInput.value = mines;
+  }
+
+  closeSettingsModal(){
+    if(this.modal){
+      this.modal.classList.remove("open");
+      this.backdrop.classList.remove("open");
+    }
+  }  
+
   bindToggleFlag(handler){
     this.flagButton.addEventListener('click', handler);
   }
 
   bindStartGame(handler){
-    this.startGameButton.addEventListener('click', event =>{
-      handler();
-    })
+    this.startGameButton.addEventListener('click', handler);
   }
 
   bindSaveSettings(handler){
     this.saveSettingsButton.addEventListener('click', event => {
       let startFormValues = this.getSettingsModalValues();
       handler(startFormValues);
-      this.closeModal();
+      this.closeSettingsModal();
     })
   }
 
   bindCanvasClicked(handler){
     this.canvas.addEventListener('click', handler);
   }
-  
-  toggleFlagButton(){
-    this.flagButton.classList.toggle('active');
+
+  bindSettingsButtonClicked(handler){
+    this.settingsButton.addEventListener('click', handler);
   }
 
-  openModal(){
-    this.modal.classList.add("open");
-    this.backdrop.classList.add("open");
-  }
-
-  closeModal(){
-    if(this.modal){
-      this.modal.classList.remove("open");
-      this.backdrop.classList.remove("open");
+  bindDifficultyLevelElementClicked(handler){
+    for(let difficultyElement of this.difficultiesElements){
+      difficultyElement.addEventListener('click', () => {
+        handler(difficultyElement.textContent);
+      });
     }
-  }  
+  }
 
 }
 

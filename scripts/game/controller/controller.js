@@ -3,10 +3,30 @@ class Controller{
     this.model = model;
     this.view = view;
 
+    this.levelSettings = {
+      'EASY': {
+        rows: 8,
+        columns: 8,
+        mines: 10
+      }, 
+      'MEDIUM' : {
+        rows: 16,
+        columns: 16,
+        mines: 40
+      },
+      'HARD': {
+        rows: 30,
+        columns: 16,
+        mines: 99
+      }
+    }
+
     this.view.bindCanvasClicked(this.handleCanvasClick.bind(this));
     this.view.bindToggleFlag(this.handleToggleFlagMode.bind(this));
     this.view.bindStartGame(this.handleStartGame.bind(this));
     this.view.bindSaveSettings(this.handleSaveSettings.bind(this));
+    this.view.bindSettingsButtonClicked(this.handleSettingsButtonClick.bind(this));
+    this.view.bindDifficultyLevelElementClicked(this.handleDifficultyLevelClick.bind(this));
 
     this.flagMode = false;
   }
@@ -66,19 +86,31 @@ class Controller{
     localStorage.setItem('settings', JSON.stringify(settings));
   }
 
-  getSettings(){
-    let settings = {
-      rows: 8,
-      columns: 8,
-      mines: 10,
+  handleSettingsButtonClick(){
+    this.view.openSettingsModal();
+    let settings = this.getSettings();
+    this.view.setSettingsModalValues(settings.rows, settings.columns, settings.mines);
+  }
+
+  handleDifficultyLevelClick(levelName){
+    if(levelName in this.levelSettings){
+      this.view.setSettingsModalValues(
+        this.levelSettings[levelName].rows,
+        this.levelSettings[levelName].columns,
+        this.levelSettings[levelName].mines
+      );
     }
+    
+  }
+
+  getSettings(){
+    let settings = this.levelSettings['EASY'];
     let lsSettings = JSON.parse(localStorage.getItem('settings'));
     if(lsSettings){
       settings = lsSettings;
     }
     return settings;
   }
-
 }
 
 let app = new Controller(new Model(8,8,10), new View(8,8));
