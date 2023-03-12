@@ -171,7 +171,7 @@ class View {
   drawMine(x, y) {
     try {
       let mineImage = new Image();
-      mineImage.src = './assets/images/mine2.png';
+      mineImage.src = '../../../assets/images/mine2.png';
       this.ctx.drawImage(mineImage, x + 0.1 * this.BLOCK_SIZE, y + 0.1 * this.BLOCK_SIZE, 0.8 * this.BLOCK_SIZE, 0.8 * this.BLOCK_SIZE);
     } catch (error) {
       console.log(error);
