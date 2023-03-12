@@ -1,3 +1,5 @@
+import Model from "../model/model";
+import View from "../view/view"
 class Controller {
   constructor(model, view) {
     this.model = model;
