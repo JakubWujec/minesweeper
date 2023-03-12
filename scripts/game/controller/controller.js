@@ -32,6 +32,11 @@ class Controller {
     this.flagMode = false;
   }
 
+  rerenderView() {
+    this.view.displayBoard(this.model.board);
+    this.view.setMinesCounter(this.model.board.getCoveredFlaggedCells().length, this.model.board.initialNumberOfMines);
+  }
+
   handleCanvasRightClick(event) {
     event.preventDefault();
     let clickLocation = this.view.getRowAndColOfClick(event);
@@ -39,7 +44,7 @@ class Controller {
       let clickedCell = this.model.board.getCellAt(...clickLocation)
       if (clickedCell.isCovered()) {
         clickedCell.toggleFlag();
-        this.view.displayBoard(this.model.board);
+        this.rerenderView();
       }
     }
 
@@ -58,8 +63,7 @@ class Controller {
         }
       }
 
-      this.view.displayBoard(this.model.board);
-      this.view.setMinesCounter(this.model.board.getCoveredFlaggedCells().length, this.model.board.initialNumberOfMines);
+      this.rerenderView();
 
       if (this.model.isGameWon()) {
         this.handleGameWon();
@@ -72,7 +76,7 @@ class Controller {
   handleGameLost() {
     this.model.board.uncoverAllCells();
     this.view.alertOnGameLost();
-    this.view.displayBoard(this.model.board);
+    this.rerenderView();
   }
 
   handleGameWon() {
@@ -90,8 +94,7 @@ class Controller {
     if (settings.rows > 0 && settings.columns > 0 && settings.mines > 0 && (settings.rows * settings.columns) > settings.mines) {
       this.model = new Model(settings.rows, settings.columns, settings.mines);
       this.view = new View(settings.rows, settings.columns);
-      this.view.displayBoard(this.model.board);
-      this.view.setMinesCounter(0, settings.mines);
+      this.rerenderView();
       if (this.flagMode) {
         this.handleToggleFlagMode();
       }
