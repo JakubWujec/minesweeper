@@ -70,7 +70,9 @@ class Controller {
   }
 
   handleGameLost() {
+    this.model.board.uncoverAllCells();
     this.view.alertOnGameLost();
+    this.view.displayBoard(this.model.board);
   }
 
   handleGameWon() {
