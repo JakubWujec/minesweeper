@@ -123,8 +123,8 @@ class Controller {
 
   }
 
-  getSettings() {
-    let settings = this.levelSettings['EASY'];
+  getSettings(defaultSettings = this.levelSettings.EASY) {
+    let settings = defaultSettings;
     let lsSettings = JSON.parse(localStorage.getItem('settings'));
     if (lsSettings) {
       settings = lsSettings;
