@@ -1,5 +1,5 @@
-class View{
-  constructor(rows=8, columns=8){
+class View {
+  constructor(rows = 8, columns = 8) {
     this.ROWS = rows;
     this.COLUMNS = columns;
     this.BLOCK_SIZE = 20;
@@ -34,75 +34,75 @@ class View{
     })
   }
 
-  setCanvasSize(width, height){
+  setCanvasSize(width, height) {
     this.canvas.width = width;
     this.canvas.height = height;
   }
 
-  get canvasLeft(){ return this.canvas.offsetLeft + this.canvas.clientLeft - this.canvas.scrollLeft;}
-  get canvasTop(){ return this.canvas.offsetTop + this.canvas.clientTop - this.canvas.scrollTop;}
+  get canvasLeft() { return this.canvas.offsetLeft + this.canvas.clientLeft - this.canvas.scrollLeft; }
+  get canvasTop() { return this.canvas.offsetTop + this.canvas.clientTop - this.canvas.scrollTop; }
 
-  calculateRequiredCanvasLength(cellsInLine){
+  calculateRequiredCanvasLength(cellsInLine) {
     return cellsInLine * (this.BLOCK_SIZE + this.SPACE_BETWEEN) + this.SPACE_BETWEEN;
   }
 
-  setMinesCounter(numerator, denominator){
-    this.minesCounterElement.innerText= `Mines ${numerator} / ${denominator}`;
+  setMinesCounter(numerator, denominator) {
+    this.minesCounterElement.innerText = `Mines ${numerator} / ${denominator}`;
   }
 
-  toggleFlagButton(){
+  toggleFlagButton() {
     this.flagButton.classList.toggle('active');
   }
 
-  alertOnGameWon(){
+  alertOnGameWon() {
     alert('You win');
   }
 
-  alertOnGameLost(){
+  alertOnGameLost() {
     alert('You lost');
   }
 
-  getRowAndColOfClick(event){     
-    function isBetween(start, end, mid){
+  getRowAndColOfClick(event) {
+    function isBetween(start, end, mid) {
       return mid <= end && start <= mid;
     }
-    
+
     let clickedX = event.pageX - this.canvasLeft;
-    let clickedY = event.pageY -this.canvasTop;
+    let clickedY = event.pageY - this.canvasTop;
 
     let col = null;
     let row = null;
-    for(let i = 0; i < this.COLUMNS; i++){
+    for (let i = 0; i < this.COLUMNS; i++) {
       let start = this.SPACE_BETWEEN + i * (this.SPACE_BETWEEN + this.BLOCK_SIZE);
       let end = (i + 1) * (this.SPACE_BETWEEN + this.BLOCK_SIZE);
-      if (isBetween(start, end, clickedX)){
+      if (isBetween(start, end, clickedX)) {
         col = i;
         break;
       }
     }
-    for(let i = 0; i < this.ROWS; i++){
+    for (let i = 0; i < this.ROWS; i++) {
       let start = this.SPACE_BETWEEN + i * (this.SPACE_BETWEEN + this.BLOCK_SIZE);
       let end = (i + 1) * (this.SPACE_BETWEEN + this.BLOCK_SIZE);
-      if (isBetween(start, end, clickedY)){
+      if (isBetween(start, end, clickedY)) {
         row = i;
         break;
       }
     }
-    if(row!== null && col!==null){
+    if (row !== null && col !== null) {
       return [row, col];
     }
     return null;
   }
-  
-  displayBoard(board){
-    if(this.canvas.getContext) {    
+
+  displayBoard(board) {
+    if (this.canvas.getContext) {
       // set fill and stroke styles
       this.ctx.fillStyle = 'gray';
       this.ctx.strokeStyle = 'black';
-    
+
       // draw a rectangle with fill and stroke
-      for(let row = 0; row < board.rows; row++){
-        for(let col = 0; col < board.cols; col++){
+      for (let row = 0; row < board.rows; row++) {
+        for (let col = 0; col < board.cols; col++) {
           let x = this.SPACE_BETWEEN + col * (this.BLOCK_SIZE + this.SPACE_BETWEEN);
           let y = this.SPACE_BETWEEN + row * (this.BLOCK_SIZE + this.SPACE_BETWEEN);
           // x,y,width,height
@@ -112,82 +112,82 @@ class View{
     }
   }
 
-  drawCell(x, y, cell){
+  drawCell(x, y, cell) {
     this.ctx.fillStyle = cell.isCovered() ? 'gray' : 'lightgray';
     this.ctx.strokeStyle = 'black';
 
     this.ctx.fillRect(
       x,
       y,
-      this.BLOCK_SIZE, 
+      this.BLOCK_SIZE,
       this.BLOCK_SIZE
     );
 
     this.ctx.strokeRect(
       x,
       y,
-      this.BLOCK_SIZE, 
+      this.BLOCK_SIZE,
       this.BLOCK_SIZE
     );
 
-    if(cell){
-      if(cell.isCovered() && cell.isFlagged()){
+    if (cell) {
+      if (cell.isCovered() && cell.isFlagged()) {
         this.drawFlag(x, y);
-      } else if(!cell.isCovered()){
-        if(cell.hasMine()){
-          this.drawMine(x, y); 
+      } else if (!cell.isCovered()) {
+        if (cell.hasMine()) {
+          this.drawMine(x, y);
         } else {
-          if(cell.value > 0){
+          if (cell.value > 0) {
             this.drawNumberInside(x, y, cell.value.toString());
           }
         }
       }
-    }   
+    }
   }
 
 
-  drawCoveredCell(){
+  drawCoveredCell() {
     this.ctx.fillStyle = cell.isCovered() ? 'gray' : 'lightgray';
     this.ctx.strokeStyle = 'black';
 
   }
 
-  drawFlag(x, y){
-    try{
+  drawFlag(x, y) {
+    try {
       let flagImage = new Image();
       flagImage.src = './assets/images/flag1.png';
       this.ctx.drawImage(flagImage, x + 0.1 * this.BLOCK_SIZE, y + 0.1 * this.BLOCK_SIZE, 0.8 * this.BLOCK_SIZE, 0.8 * this.BLOCK_SIZE);
-    } catch(error){
+    } catch (error) {
       console.log(error);
     }
 
   }
 
-  drawNumberInside(x, y, numberString){
+  drawNumberInside(x, y, numberString) {
     this.ctx.fillText(numberString, x + 0.4 * this.BLOCK_SIZE, y + 0.6 * this.BLOCK_SIZE);
     this.ctx.strokeText(numberString, x + 0.4 * this.BLOCK_SIZE, y + 0.6 * this.BLOCK_SIZE);
   }
 
-  drawMine(x, y){
-    try{
+  drawMine(x, y) {
+    try {
       let mineImage = new Image();
       mineImage.src = './assets/images/mine2.png';
       this.ctx.drawImage(mineImage, x + 0.1 * this.BLOCK_SIZE, y + 0.1 * this.BLOCK_SIZE, 0.8 * this.BLOCK_SIZE, 0.8 * this.BLOCK_SIZE);
-    } catch(error){
+    } catch (error) {
       console.log(error);
     }
   }
 
-  toggleFlagButton(){
+  toggleFlagButton() {
     this.flagButton.classList.toggle('active');
   }
 
-  openSettingsModal(){
+  openSettingsModal() {
     this.modal.classList.add("open");
     this.backdrop.classList.add("open");
   }
 
-  getSettingsModalValues(){
+  getSettingsModalValues() {
     let rowsValue = this.rowsModalInput.value;
     let columnsValue = this.columnsModalInput.value;
     let minesValue = this.minesModalInput.value;
@@ -198,28 +198,28 @@ class View{
     }
   }
 
-  setSettingsModalValues(rows, columns, mines){
+  setSettingsModalValues(rows, columns, mines) {
     this.rowsModalInput.value = rows;
     this.columnsModalInput.value = columns;
     this.minesModalInput.value = mines;
   }
 
-  closeSettingsModal(){
-    if(this.modal){
+  closeSettingsModal() {
+    if (this.modal) {
       this.modal.classList.remove("open");
       this.backdrop.classList.remove("open");
     }
-  }  
+  }
 
-  bindToggleFlag(handler){
+  bindToggleFlag(handler) {
     this.flagButton.addEventListener('click', handler);
   }
 
-  bindStartGame(handler){
+  bindStartGame(handler) {
     this.startGameButton.addEventListener('click', handler);
   }
 
-  bindSaveSettings(handler){
+  bindSaveSettings(handler) {
     this.saveSettingsButton.addEventListener('click', event => {
       let startFormValues = this.getSettingsModalValues();
       handler(startFormValues);
@@ -227,16 +227,20 @@ class View{
     })
   }
 
-  bindCanvasClicked(handler){
+  bindCanvasClicked(handler) {
     this.canvas.addEventListener('click', handler);
   }
 
-  bindSettingsButtonClicked(handler){
+  bindCanvasRightClicked(handler) {
+    this.canvas.addEventListener('contextmenu', handler);
+  }
+
+  bindSettingsButtonClicked(handler) {
     this.settingsButton.addEventListener('click', handler);
   }
 
-  bindDifficultyLevelElementClicked(handler){
-    for(let difficultyElement of this.difficultiesElements){
+  bindDifficultyLevelElementClicked(handler) {
+    for (let difficultyElement of this.difficultiesElements) {
       difficultyElement.addEventListener('click', () => {
         handler(difficultyElement.textContent);
       });

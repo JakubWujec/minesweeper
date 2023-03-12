@@ -22,6 +22,7 @@ class Controller {
     }
 
     this.view.bindCanvasClicked(this.handleCanvasClick.bind(this));
+    this.view.bindCanvasRightClicked(this.handleCanvasRightClick.bind(this));
     this.view.bindToggleFlag(this.handleToggleFlagMode.bind(this));
     this.view.bindStartGame(this.handleStartGame.bind(this));
     this.view.bindSaveSettings(this.handleSaveSettings.bind(this));
@@ -29,6 +30,19 @@ class Controller {
     this.view.bindDifficultyLevelElementClicked(this.handleDifficultyLevelClick.bind(this));
 
     this.flagMode = false;
+  }
+
+  handleCanvasRightClick(event) {
+    event.preventDefault();
+    let clickLocation = this.view.getRowAndColOfClick(event);
+    if (clickLocation != null) {
+      let clickedCell = this.model.board.getCellAt(...clickLocation)
+      if (clickedCell.isCovered()) {
+        clickedCell.toggleFlag();
+        this.view.displayBoard(this.model.board);
+      }
+    }
+
   }
 
   handleCanvasClick(event) {
