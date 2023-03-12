@@ -58,7 +58,10 @@ class Cell {
   }
 
   isFlagged() {
-    return this.flagged;
+    if (this.isCovered()) {
+      return this.flagged;
+    }
+    return false;
   }
 }
 
