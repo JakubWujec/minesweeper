@@ -59,7 +59,7 @@ class Controller {
       console.log(location);
       if (location !== null) {
         if (this.flagMode) {
-          this.model.board.getCellAt(...location).toggleFlag();
+          this.model.toggleFlagAt(...location);
         } else {
           this.model.board.selectCell(...location);
         }

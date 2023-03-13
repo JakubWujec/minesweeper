@@ -24,6 +24,10 @@ class Model {
     return uncoveredMineFields.length > 0;
   }
 
+  toggleFlagAt(row, column) {
+    this.board.toggleFlagAt(row, column);
+  }
+
 }
 
 export default Model;

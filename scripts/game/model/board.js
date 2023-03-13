@@ -82,6 +82,10 @@ class Board {
     return this.getFilteredCells(cell => cell.isFlagged() && cell.isCovered());
   }
 
+  toggleFlagAt(row, column) {
+    this.getCellAt(row, column).toggleFlag();
+  }
+
 
   selectCell(row, col) {
     let selectedCell = this.getCellAt(row, col);
