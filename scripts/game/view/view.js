@@ -178,10 +178,6 @@ class View {
     }
   }
 
-  toggleFlagButton() {
-    this.flagButton.classList.toggle('active');
-  }
-
   openSettingsModal() {
     this.modal.classList.add("open");
     this.backdrop.classList.add("open");
