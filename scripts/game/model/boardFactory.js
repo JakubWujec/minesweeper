@@ -20,7 +20,6 @@ class BoardFactory {
 
   prepare() {
     let cells = this.prepareCells();
-    console.log(cells);
     let board = new Board(this.rows, this.columns, cells);
     this.prepareMines(board);
     this.prepareNumbers(board);
@@ -29,14 +28,10 @@ class BoardFactory {
 
   prepareCells() {
     let cells = [];
-    console.log(this.rows, this.columns, this.mines)
     for (let x = 0; x < this.rows; x++) {
-      let newRow = [];
       for (let y = 0; y < this.columns; y++) {
-        let newCell = new Cell(x, y, 0);
-        newRow.push(newCell);
+        cells.push(new Cell(x, y, 0))
       }
-      cells.push(newRow);
     }
     return cells;
   }

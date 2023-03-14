@@ -10,12 +10,12 @@ class Board {
   }
 
   get cells() {
-    return this.#cells.flat();
+    return this.#cells;
   }
 
   getCellAt(row, col) {
     if (row >= 0 && row < this.rows && col >= 0 && col < this.cols) {
-      return this.#cells[row][col];
+      return this.cells.find(cell => cell.row === row && cell.col === col);
     }
     return null
   }
