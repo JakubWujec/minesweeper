@@ -87,22 +87,16 @@ class Board {
   }
 
 
-  selectCell(row, col) {
+  uncoverCellAt(row, col) {
     let selectedCell = this.getCellAt(row, col);
-    if (selectedCell) {
-      if (!selectedCell.isFlagged()) {
-        if (selectedCell.isCovered()) {
-          selectedCell.uncover();
-          if (!selectedCell.hasMine()) {
-            this.uncoverUnarmedNeighbours(selectedCell);
-          }
-        }
+    if (selectedCell && !selectedCell.isFlagged() && selectedCell.isCovered()) {
+      selectedCell.uncover();
+      if (!selectedCell.hasMine()) {
+        this.uncoverUnarmedNeighbours(selectedCell);
       }
-    }
-    else {
+    } else {
       console.log(`no selected cell: row ${row}, col ${col}`)
     }
-
   }
 
   uncoverAllCells() {
