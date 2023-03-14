@@ -28,6 +28,18 @@ class Model {
     this.board.toggleFlagAt(row, column);
   }
 
+  selectCellAt(row, column) {
+    this.board.selectCellAt(row, column);
+  }
+
+  uncoverAllCells() {
+    for (let cell of this.board.cells) {
+      if (cell.isCovered()) {
+        cell.uncover();
+      }
+    }
+  }
+
 }
 
 export default Model;

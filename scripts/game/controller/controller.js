@@ -58,7 +58,7 @@ class Controller {
         if (this.flagMode) {
           this.model.toggleFlagAt(...location);
         } else {
-          this.model.board.selectCellAt(...location);
+          this.model.selectCellAt(...location);
         }
       }
 
@@ -73,7 +73,7 @@ class Controller {
   }
 
   handleGameLost() {
-    this.model.board.uncoverAllCells();
+    this.model.uncoverAllCells();
     this.view.alertOnGameLost();
     this.rerenderView();
   }

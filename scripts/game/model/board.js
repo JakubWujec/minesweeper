@@ -93,16 +93,6 @@ class Board {
     }
   }
 
-  uncoverAllCells() {
-    for (let row of this.cells) {
-      for (let cell of row) {
-        if (cell.isCovered()) {
-          cell.uncover();
-        }
-      }
-    }
-  }
-
   uncoverCellAt(x, y) {
     let cellToUncover = this.getCellAt(x, y);
     cellToUncover.uncover();
