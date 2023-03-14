@@ -93,7 +93,7 @@ class Controller {
   handleStartGame() {
     let settings = this.getSettings();
     console.log(settings);
-    if (settings.rows > 0 && settings.columns > 0 && settings.mines > 0 && (settings.rows * settings.columns) > settings.mines) {
+    if (settings.rows > 0 && settings.columns > 0 && settings.mines >= 0 && (settings.rows * settings.columns) > settings.mines) {
       this.model = new Model(settings.rows, settings.columns, settings.mines);
       this.view = new View(settings.rows, settings.columns);
       this.rerenderView();
