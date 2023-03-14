@@ -1,11 +1,13 @@
 import Cell from "./cell";
 
 class Board {
+  #cells;
+
   constructor(rows, cols, initialNumberOfMines) {
     this.rows = rows;
     this.cols = cols;
     this.initialNumberOfMines = initialNumberOfMines;
-    this.cells = [];
+    this.#cells = [];
 
     for (let x = 0; x < this.rows; x++) {
       let newRow = [];
@@ -13,7 +15,7 @@ class Board {
         let newCell = new Cell(x, y, 0);
         newRow.push(newCell);
       }
-      this.cells.push(newRow);
+      this.#cells.push(newRow);
     }
   }
 
@@ -21,6 +23,18 @@ class Board {
     this.plantMines();
     this.plantNumbers();
   }
+
+  get cells() {
+    return this.#cells.flat();
+  }
+
+  getCellAt(row, col) {
+    if (row >= 0 && row < this.rows && col >= 0 && col < this.cols) {
+      return this.#cells[row][col];
+    }
+    return null
+  }
+
 
   plantMines() {
     while (this.getNumberOfArmedMines() < this.initialNumberOfMines) {
@@ -43,43 +57,23 @@ class Board {
   }
 
   getNumberOfArmedMines() {
-    let mines = 0;
-    for (let row of this.cells) {
-      for (let cell of row) {
-        if (cell.hasMine()) {
-          mines += 1;
-        }
-      }
-    }
-    return mines;
-  }
-
-  getFilteredCells(filterFunction) {
-    let selected = [];
-    for (let row of this.cells) {
-      for (let cell of row) {
-        if (filterFunction(cell)) {
-          selected.push(cell);
-        }
-      }
-    }
-    return selected
+    return this.cells.filter(cell => cell.hasMine()).length
   }
 
   getCoveredCells() {
-    return this.getFilteredCells(cell => cell.isCovered());
+    return this.cells.filter(cell => cell.isCovered());
   }
 
   getMinedCells() {
-    return this.getFilteredCells(cell => cell.hasMine());
+    return this.cells.filter(cell => cell.hasMine());
   }
 
   getFlaggedCells() {
-    return this.getFilteredCells(cell => cell.isFlagged())
+    return this.cells.filter(cell => cell.isFlagged())
   }
 
   getCoveredFlaggedCells() {
-    return this.getFilteredCells(cell => cell.isFlagged() && cell.isCovered());
+    return this.cells.filter(cell => cell.isFlagged() && cell.isCovered());
   }
 
   toggleFlagAt(row, column) {
@@ -133,12 +127,7 @@ class Board {
     }
   }
 
-  getCellAt(row, col) {
-    if (row >= 0 && row < this.rows && col >= 0 && col < this.cols) {
-      return this.cells[row][col];
-    }
-    return null
-  }
+
 
   getNeighboursOf(row, col) {
     let neighbours = [];

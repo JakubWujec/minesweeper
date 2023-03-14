@@ -18,7 +18,7 @@ class Model {
   }
 
   isGameLost() {
-    let uncoveredMineFields = this.board.getFilteredCells(
+    let uncoveredMineFields = this.board.cells.filter(
       (cell) => !cell.isCovered() && cell.hasMine()
     )
     return uncoveredMineFields.length > 0;
