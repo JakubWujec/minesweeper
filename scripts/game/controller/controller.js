@@ -41,13 +41,10 @@ class Controller {
 
   handleCanvasRightClick(event) {
     event.preventDefault();
-    let clickLocation = this.view.getRowAndColOfClick(event);
-    if (clickLocation != null) {
-      let clickedCell = this.model.board.getCellAt(...clickLocation)
-      if (clickedCell.isCovered()) {
-        clickedCell.toggleFlag();
-        this.rerenderView();
-      }
+    let location = this.view.getRowAndColOfClick(event);
+    if (location) {
+      this.model.toggleFlagAt(...location);
+      this.rerenderView();
     }
 
   }
