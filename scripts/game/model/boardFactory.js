@@ -2,10 +2,20 @@ import Board from "./board";
 import Cell from "./cell";
 
 class BoardFactory {
-  constructor(rows, columns, mines) {
-    this.rows = rows;
-    this.columns = columns;
-    this.mines = mines;
+  constructor(settings) {
+    this.settings = settings;
+  }
+
+  get rows() {
+    return this.settings.rows;
+  }
+
+  get columns() {
+    return this.settings.columns;
+  }
+
+  get mines() {
+    return this.settings.mines;
   }
 
   prepare() {

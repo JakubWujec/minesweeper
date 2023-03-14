@@ -3,9 +3,9 @@ import BoardFactory from "./boardFactory";
 
 
 class Model {
-  constructor(row = 8, cols = 8, mines = 10) {
-    this.initialNumberOfMines = mines;
-    let boardFactory = new BoardFactory(row, cols, mines);
+  constructor(settings) {
+    this.initialNumberOfMines = settings.mines;
+    let boardFactory = new BoardFactory(settings);
     this.board = boardFactory.prepare();
   }
 
