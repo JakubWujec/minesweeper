@@ -4,9 +4,17 @@ import BoardFactory from "./boardFactory";
 
 class Model {
   constructor(settings) {
-    this.initialNumberOfMines = settings.mines;
-    let boardFactory = new BoardFactory(settings);
-    this.board = boardFactory.prepare();
+    this.settings = settings;
+    this.board = this.#prepareBoard();
+  }
+
+  #prepareBoard() {
+    let boardFactory = new BoardFactory(this.settings);
+    return boardFactory.prepare();
+  }
+
+  get initialNumberOfMines() {
+    return this.settings.mines
   }
 
   isGameFinished() {
