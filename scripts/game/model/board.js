@@ -81,7 +81,7 @@ class Board {
   }
 
 
-  uncoverCellAt(row, col) {
+  selectCellAt(row, col) {
     let selectedCell = this.getCellAt(row, col);
     if (selectedCell && !selectedCell.isFlagged() && selectedCell.isCovered()) {
       selectedCell.uncover();

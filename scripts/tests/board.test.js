@@ -2,6 +2,20 @@ import Board from "../game/model/board"
 import { assert, expect, test } from 'vitest'
 
 
+test('getNeighboursOf', () => {
+  let board = new Board(3, 3, 0);
+  expect(board.getNeighboursOf(1, 1).length).toEqual(8);
+  expect(board.getNeighboursOf(0, 0).length).toEqual(3);
+  expect(board.getNeighboursOf(0, 1).length).toEqual(5);
+})
+
+test('selectCellAt uncover whole board when no mines', () => {
+  let board = new Board(4, 4, 0);
+  board.selectCellAt(0, 0);
+
+  expect(board.getCoveredCells().length).toEqual(0);
+})
+
 test('get cells', () => {
   let board = new Board(2, 2, 1);
   let cells = board.cells;

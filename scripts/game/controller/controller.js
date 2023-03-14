@@ -61,7 +61,7 @@ class Controller {
         if (this.flagMode) {
           this.model.toggleFlagAt(...location);
         } else {
-          this.model.board.uncoverCellAt(...location);
+          this.model.board.selectCellAt(...location);
         }
       }
 
