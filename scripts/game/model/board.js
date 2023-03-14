@@ -3,25 +3,10 @@ import Cell from "./cell";
 class Board {
   #cells;
 
-  constructor(rows, cols, initialNumberOfMines) {
+  constructor(rows, cols, cells) {
     this.rows = rows;
     this.cols = cols;
-    this.initialNumberOfMines = initialNumberOfMines;
-    this.#cells = [];
-
-    for (let x = 0; x < this.rows; x++) {
-      let newRow = [];
-      for (let y = 0; y < this.cols; y++) {
-        let newCell = new Cell(x, y, 0);
-        newRow.push(newCell);
-      }
-      this.#cells.push(newRow);
-    }
-  }
-
-  prepare() {
-    this.plantMines();
-    this.plantNumbers();
+    this.#cells = cells;
   }
 
   get cells() {
@@ -33,27 +18,6 @@ class Board {
       return this.#cells[row][col];
     }
     return null
-  }
-
-
-  plantMines() {
-    while (this.getNumberOfArmedCells() < this.initialNumberOfMines) {
-      let row = Math.floor(Math.random() * this.rows);
-      let col = Math.floor(Math.random() * this.cols);
-      this.getCellAt(row, col).setMine();
-    }
-  }
-
-  plantNumbers() {
-    for (let x = 0; x < this.rows; x++) {
-      for (let y = 0; y < this.cols; y++) {
-        let f = this.getCellAt(x, y);
-        if (!f.hasMine()) {
-          let neigh = this.getNeighboursOf(x, y).filter(cell => cell.hasMine());
-          f.value = neigh.length;
-        }
-      }
-    }
   }
 
   getNumberOfArmedCells() {

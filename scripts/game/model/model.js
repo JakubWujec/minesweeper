@@ -1,11 +1,12 @@
 import Board from "./board";
+import BoardFactory from "./boardFactory";
 
 
 class Model {
   constructor(row = 8, cols = 8, mines = 10) {
-    this.board = new Board(row, cols, mines);
-    this.board.prepare();
-    this.board.logCells(true);
+    this.initialNumberOfMines = mines;
+    let boardFactory = new BoardFactory(row, cols, mines);
+    this.board = boardFactory.prepare();
   }
 
   isGameFinished() {
@@ -14,7 +15,7 @@ class Model {
 
   isGameWon() {
     let coveredFields = this.board.getCoveredCells();
-    return coveredFields.every(cell => cell.hasMine()) && coveredFields.length === this.board.initialNumberOfMines;
+    return coveredFields.every(cell => cell.hasMine()) && coveredFields.length === this.initialNumberOfMines;
   }
 
   isGameLost() {
