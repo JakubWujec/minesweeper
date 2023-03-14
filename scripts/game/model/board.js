@@ -37,7 +37,7 @@ class Board {
 
 
   plantMines() {
-    while (this.getNumberOfArmedMines() < this.initialNumberOfMines) {
+    while (this.getNumberOfArmedCells() < this.initialNumberOfMines) {
       let row = Math.floor(Math.random() * this.rows);
       let col = Math.floor(Math.random() * this.cols);
       this.getCellAt(row, col).setMine();
@@ -56,7 +56,7 @@ class Board {
     }
   }
 
-  getNumberOfArmedMines() {
+  getNumberOfArmedCells() {
     return this.cells.filter(cell => cell.hasMine()).length
   }
 

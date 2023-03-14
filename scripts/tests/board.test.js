@@ -33,7 +33,7 @@ test('get mined cells', () => {
 test('get number of mined  cells', () => {
   let board = new Board(2, 2, 2);
   board.prepare();
-  expect(board.getNumberOfArmedMines()).toEqual(2);
+  expect(board.getNumberOfArmedCells()).toEqual(2);
 })
 
 test('Board flag toggle', () => {
