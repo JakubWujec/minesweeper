@@ -42,7 +42,7 @@ class SettingsController {
   }
 
   validateSettings(settings) {
-    return settings.rows > 0 && settings.columns > 0 && settings.mines >= 0 && (settings.rows * settings.columns) > settings.mines
+    return settings.rows > 0 && settings.columns > 0 && settings.mines >= 0 && (settings.rows * settings.columns) >= settings.mines
   }
 
 
