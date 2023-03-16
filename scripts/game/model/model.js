@@ -49,6 +49,10 @@ class Model {
     }
   }
 
+  get numberOfFlaggedCells() {
+    return this.board.getCoveredFlaggedCells().length;
+  }
+
 }
 
 export default Model;

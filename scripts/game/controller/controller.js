@@ -29,7 +29,7 @@ class Controller {
 
   rerenderView() {
     this.view.displayBoard(this.model.board);
-    this.view.setMinesCounter(this.model.board.getCoveredFlaggedCells().length, this.model.initialNumberOfMines);
+    this.view.setMinesCounter(this.model.numberOfFlaggedCells, this.model.initialNumberOfMines);
   }
 
   handleCanvasRightClick(event) {
