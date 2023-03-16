@@ -1,27 +1,12 @@
 import Model from "../model/model";
 import View from "../view/view"
+import SettingsController from "./settingsController";
 class Controller {
   constructor(model, view) {
     this.model = model;
     this.view = view;
 
-    this.levelSettings = {
-      'EASY': {
-        rows: 8,
-        columns: 8,
-        mines: 10
-      },
-      'MEDIUM': {
-        rows: 16,
-        columns: 16,
-        mines: 40
-      },
-      'HARD': {
-        rows: 30,
-        columns: 16,
-        mines: 99
-      }
-    }
+    this.settingsController = new SettingsController();
 
     this.view.bindCanvasClicked(this.handleCanvasClick.bind(this));
     this.view.bindCanvasRightClicked(this.handleCanvasRightClick.bind(this));
@@ -32,6 +17,14 @@ class Controller {
     this.view.bindDifficultyLevelElementClicked(this.handleDifficultyLevelClick.bind(this));
 
     this.flagMode = false;
+  }
+
+  get levelSettings() {
+    return this.settingsController.levelSettings;
+  }
+
+  getSettings() {
+    return this.settingsController.settings;
   }
 
   rerenderView() {
@@ -89,19 +82,17 @@ class Controller {
 
   handleStartGame() {
     let settings = this.getSettings();
-    console.log(settings);
-    if (settings.rows > 0 && settings.columns > 0 && settings.mines >= 0 && (settings.rows * settings.columns) > settings.mines) {
-      this.model = new Model(settings);
-      this.view = new View(settings.rows, settings.columns);
-      this.rerenderView();
-      if (this.flagMode) {
-        this.handleToggleFlagMode();
-      }
+    this.model = new Model(settings);
+    this.view = new View(settings.rows, settings.columns);
+    this.rerenderView();
+    if (this.flagMode) {
+      this.handleToggleFlagMode();
     }
+
   }
 
   handleSaveSettings(settings) {
-    localStorage.setItem('settings', JSON.stringify(settings));
+    this.settingsController.settings = settings;
     this.handleStartGame();
   }
 
@@ -119,17 +110,9 @@ class Controller {
         this.levelSettings[levelName].mines
       );
     }
-
   }
 
-  getSettings(defaultSettings = this.levelSettings.EASY) {
-    let settings = defaultSettings;
-    let lsSettings = JSON.parse(localStorage.getItem('settings'));
-    if (lsSettings) {
-      settings = lsSettings;
-    }
-    return settings;
-  }
+
 }
 
 let app = new Controller(new Model(8, 8, 10), new View(8, 8));
