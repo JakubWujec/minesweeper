@@ -50,8 +50,12 @@ class View {
     this.minesCounterElement.innerText = `Mines ${numerator} / ${denominator}`;
   }
 
-  toggleFlagButton() {
-    this.flagButton.classList.toggle('active');
+  setFlagButtonOff() {
+    this.flagButton.classList.remove('active');
+  }
+
+  setFlagButtonOn() {
+    this.flagButton.classList.add('active')
   }
 
   alertOnGameWon() {

@@ -76,19 +76,29 @@ class Controller {
   }
 
   handleToggleFlagMode() {
-    this.flagMode = !this.flagMode;
-    this.view.toggleFlagButton();
+    if (this.flagMode) {
+      this.setFlagModeOff();
+    } else {
+      this.setFlagModeOn();
+    }
+  }
+
+  setFlagModeOff() {
+    this.flagMode = false;
+    this.view.setFlagButtonOff();
+  }
+
+  setFlagModeOn() {
+    this.flagMode = true;
+    this.view.setFlagButtonOn();
   }
 
   handleStartGame() {
     let settings = this.getSettings();
     this.model = new Model(settings);
     this.view = new View(settings.rows, settings.columns);
+    this.setFlagModeOff();
     this.rerenderView();
-    if (this.flagMode) {
-      this.handleToggleFlagMode();
-    }
-
   }
 
   handleSaveSettings(settings) {
@@ -111,8 +121,6 @@ class Controller {
       );
     }
   }
-
-
 }
 
 let app = new Controller(new Model(8, 8, 10), new View(8, 8));
