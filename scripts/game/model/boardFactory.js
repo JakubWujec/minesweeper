@@ -47,10 +47,10 @@ class BoardFactory {
   prepareNumbers(board) {
     for (let x = 0; x < this.rows; x++) {
       for (let y = 0; y < this.columns; y++) {
-        let f = board.getCellAt(x, y);
-        if (!f.hasMine()) {
+        let cell = board.getCellAt(x, y);
+        if (!cell.hasMine()) {
           let neigh = board.getNeighboursOf(x, y).filter(cell => cell.hasMine());
-          f.value = neigh.length;
+          cell.value = neigh.length;
         }
       }
     }
