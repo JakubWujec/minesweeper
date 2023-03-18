@@ -149,13 +149,6 @@ class View {
     }
   }
 
-
-  drawCoveredCell() {
-    this.ctx.fillStyle = cell.isCovered() ? 'gray' : 'lightgray';
-    this.ctx.strokeStyle = 'black';
-
-  }
-
   drawFlag(x, y) {
     try {
       let flagImage = new Image();
