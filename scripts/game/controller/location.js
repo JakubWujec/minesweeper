@@ -1,30 +1,21 @@
 class Location {
-  #x;
-  #y;
-  constructor(x, y) {
-    this.#x = x;
-    this.#y = y;
+  #row;
+  #column;
+  constructor(row, column) {
+    this.#row = row;
+    this.#column = column;
   }
 
-  get x() {
-    return this.#x;
+  get row() {
+    return this.#row;
   }
 
-  get y() {
-    return this.#y;
-  }
-
-  fromArray(locationArray) {
-    this.#x = locationArray[0];
-    this.#y = locationArray[1];
-  }
-
-  asArray() {
-    return [this.x, this.y]
+  get column() {
+    return this.#column;
   }
 
   toString() {
-    return `{x: ${this.x}, y: ${this.y}}`
+    return `{row: ${this.row}, column: ${this.column}}`
   }
 }
 

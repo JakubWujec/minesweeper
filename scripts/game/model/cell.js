@@ -11,8 +11,8 @@ class Cell {
     this.covered = true;
   }
 
-  get row() { return this.#location.x };
-  get column() { return this.#location.y }
+  get row() { return this.#location.row };
+  get column() { return this.#location.column }
   get location() { return this.#location; }
   set location(newLocation) { this.#location = newLocation }
 

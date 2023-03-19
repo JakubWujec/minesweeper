@@ -13,7 +13,7 @@ class Board {
   }
 
   getCellAt(location) {
-    let [row, col] = [location.x, location.y]
+    let [row, col] = [location.row, location.column]
     if (row >= 0 && row < this.rows && col >= 0 && col < this.cols) {
       return this.cells.find(cell => cell.row === row && cell.column === col);
     }
@@ -53,7 +53,7 @@ class Board {
         this.uncoverUnarmedNeighbours(selectedCell);
       }
     } else {
-      console.log(`no selected cell: row ${location.x}, col ${location.y}`)
+      console.log(`no selected cell: row ${location.row}, col ${location.column}`)
     }
   }
 
@@ -85,7 +85,7 @@ class Board {
 
 
   getNeighboursOf(location) {
-    let [row, col] = [location.x, location.y]
+    let [row, col] = [location.row, location.column]
     let neighbours = [];
     for (let i of [-1, 0, 1]) {
       for (let j of [-1, 0, 1]) {
