@@ -206,7 +206,7 @@ class View {
     }
   }
 
-  bindToggleFlag(handler) {
+  bindToggleFlagMode(handler) {
     this.flagButton.addEventListener('click', handler);
   }
 
@@ -222,12 +222,20 @@ class View {
     })
   }
 
-  bindCanvasClicked(handler) {
-    this.canvas.addEventListener('click', handler);
+  bindUncoverAt(handler) {
+    let _handler = (event) => {
+      event.preventDefault();
+      handler(this.getLocationOfClick(event));
+    }
+    this.canvas.addEventListener('click', _handler)
   }
 
-  bindCanvasRightClicked(handler) {
-    this.canvas.addEventListener('contextmenu', handler);
+  bindToggleFlagAt(handler) {
+    let _handler = (event) => {
+      event.preventDefault();
+      handler(this.getLocationOfClick(event));
+    }
+    this.canvas.addEventListener('contextmenu', _handler)
   }
 
   bindSettingsButtonClicked(handler) {

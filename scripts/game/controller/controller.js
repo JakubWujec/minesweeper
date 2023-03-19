@@ -9,9 +9,9 @@ class Controller {
 
     this.settingsController = new SettingsController();
 
-    this.view.bindCanvasClicked(this.handleCanvasClick.bind(this));
-    this.view.bindCanvasRightClicked(this.handleCanvasRightClick.bind(this));
-    this.view.bindToggleFlag(this.handleToggleFlagMode.bind(this));
+    this.view.bindToggleFlagAt(this.handleToggleFlagAt.bind(this))
+    this.view.bindUncoverAt(this.handleUncoverAt.bind(this));
+    this.view.bindToggleFlagMode(this.handleToggleFlagMode.bind(this));
     this.view.bindStartGame(this.handleStartGame.bind(this));
     this.view.bindSaveSettings(this.handleSaveSettings.bind(this));
     this.view.bindSettingsButtonClicked(this.handleSettingsButtonClick.bind(this));
@@ -33,28 +33,14 @@ class Controller {
     this.view.setMinesCounter(this.model.numberOfFlaggedCells, this.model.initialNumberOfMines);
   }
 
-  handleCanvasRightClick(event) {
-    event.preventDefault();
-    let location = this.view.getLocationOfClick(event);
-    if (location) {
-      this.model.toggleFlagAt(location);
-      this.rerenderView();
-    }
-
-  }
-
-  handleCanvasClick(event) {
-    console.log(event);
+  handleLocationSelected(location, flagMode) {
+    if (!location) return;
     if (!this.model.isGameFinished()) {
-      let location = this.view.getLocationOfClick(event);
-      if (location !== null) {
-        if (this.flagMode) {
-          this.model.toggleFlagAt(location);
-        } else {
-          this.model.selectCellAt(location);
-        }
+      if (flagMode) {
+        this.model.toggleFlagAt(location);
+      } else {
+        this.model.selectCellAt(location);
       }
-
       this.rerenderView();
 
       if (this.model.isGameWon()) {
@@ -63,7 +49,17 @@ class Controller {
         this.handleGameLost();
       }
     }
+
   }
+
+  handleUncoverAt(location) {
+    this.handleLocationSelected(location, this.flagMode);
+  }
+
+  handleToggleFlagAt(location) {
+    this.handleLocationSelected(location, true);
+  }
+
 
   handleGameLost() {
     this.model.uncoverAllCells();
