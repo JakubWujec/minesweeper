@@ -39,13 +39,12 @@ class BoardFactory {
 
   getRandomLocation() {
     let row = Math.floor(Math.random() * this.rows);
-    let col = Math.floor(Math.random() * this.columns);
-    return new Location(row, col);
+    let column = Math.floor(Math.random() * this.columns);
+    return new Location(row, column);
   }
 
   prepareMines(board) {
     while (board.getNumberOfArmedCells() < this.mines) {
-      console.log("yy", this.getRandomLocation().toString(), board)
       board.getCellAt(this.getRandomLocation()).setMine();
     }
   }

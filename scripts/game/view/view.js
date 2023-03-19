@@ -76,13 +76,13 @@ class View {
     let clickedX = event.pageX - this.canvasLeft;
     let clickedY = event.pageY - this.canvasTop;
 
-    let col = null;
+    let column = null;
     let row = null;
     for (let i = 0; i < this.COLUMNS; i++) {
       let start = this.SPACE_BETWEEN + i * (this.SPACE_BETWEEN + this.BLOCK_SIZE);
       let end = (i + 1) * (this.SPACE_BETWEEN + this.BLOCK_SIZE);
       if (isBetween(start, end, clickedX)) {
-        col = i;
+        column = i;
         break;
       }
     }
@@ -94,8 +94,8 @@ class View {
         break;
       }
     }
-    if (row !== null && col !== null) {
-      return new Location(row, col);
+    if (row !== null && column !== null) {
+      return new Location(row, column);
     }
     return null;
   }
@@ -108,11 +108,11 @@ class View {
 
       // draw a rectangle with fill and stroke
       for (let row = 0; row < board.rows; row++) {
-        for (let col = 0; col < board.cols; col++) {
-          let x = this.SPACE_BETWEEN + col * (this.BLOCK_SIZE + this.SPACE_BETWEEN);
+        for (let column = 0; column < board.columns; column++) {
+          let x = this.SPACE_BETWEEN + column * (this.BLOCK_SIZE + this.SPACE_BETWEEN);
           let y = this.SPACE_BETWEEN + row * (this.BLOCK_SIZE + this.SPACE_BETWEEN);
           // x,y,width,height
-          this.drawCell(x, y, board.getCellAt(new Location(row, col)));
+          this.drawCell(x, y, board.getCellAt(new Location(row, column)));
         }
       }
     }

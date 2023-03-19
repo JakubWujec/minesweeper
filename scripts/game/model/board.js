@@ -2,9 +2,9 @@ import Location from "../controller/location";
 class Board {
   #cells;
 
-  constructor(rows, cols, cells) {
+  constructor(rows, columns, cells) {
     this.rows = rows;
-    this.cols = cols;
+    this.columns = columns;
     this.#cells = cells;
   }
 
@@ -13,9 +13,9 @@ class Board {
   }
 
   getCellAt(location) {
-    let [row, col] = [location.row, location.column]
-    if (row >= 0 && row < this.rows && col >= 0 && col < this.cols) {
-      return this.cells.find(cell => cell.row === row && cell.column === col);
+    let [row, column] = [location.row, location.column]
+    if (row >= 0 && row < this.rows && column >= 0 && column < this.columns) {
+      return this.cells.find(cell => cell.row === row && cell.column === column);
     }
     return null
   }
@@ -53,7 +53,7 @@ class Board {
         this.uncoverUnarmedNeighbours(selectedCell);
       }
     } else {
-      console.log(`no selected cell: row ${location.row}, col ${location.column}`)
+      console.log(`no selected cell: row ${location.row}, column ${location.column}`)
     }
   }
 
@@ -85,13 +85,13 @@ class Board {
 
 
   getNeighboursOf(location) {
-    let [row, col] = [location.row, location.column]
+    let [row, column] = [location.row, location.column]
     let neighbours = [];
     for (let i of [-1, 0, 1]) {
       for (let j of [-1, 0, 1]) {
         let newRow = row + parseInt(i);
-        let newCol = col + parseInt(j);
-        if ((0 <= newRow < this.rows) && (0 <= newCol < this.cols) && !(row === newRow && col === newCol)) {
+        let newCol = column + parseInt(j);
+        if ((0 <= newRow < this.rows) && (0 <= newCol < this.columns) && !(row === newRow && column === newCol)) {
           neighbours.push(this.getCellAt(new Location(newRow, newCol)));
         }
       }
@@ -104,7 +104,7 @@ class Board {
   logCells(showAll = false) {
     for (let x = 0; x < this.rows; x++) {
       let str = ' ';
-      for (let y = 0; y < this.cols; y++) {
+      for (let y = 0; y < this.columns; y++) {
         let cell = this.getCellAt(x, y);
         str += ' ' + (showAll ? cell.value : cell.isCovered() ? 'A' : cell.value);
       }
