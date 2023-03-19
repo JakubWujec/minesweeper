@@ -1,3 +1,5 @@
+import Location from "../controller/location";
+
 class View {
   constructor(rows = 8, columns = 8) {
     this.ROWS = rows;
@@ -66,7 +68,7 @@ class View {
     alert('You lost');
   }
 
-  getRowAndColOfClick(event) {
+  getLocationOfClick(event) {
     function isBetween(start, end, mid) {
       return mid <= end && start <= mid;
     }
@@ -93,7 +95,7 @@ class View {
       }
     }
     if (row !== null && col !== null) {
-      return [row, col];
+      return new Location(row, col);
     }
     return null;
   }
@@ -110,7 +112,7 @@ class View {
           let x = this.SPACE_BETWEEN + col * (this.BLOCK_SIZE + this.SPACE_BETWEEN);
           let y = this.SPACE_BETWEEN + row * (this.BLOCK_SIZE + this.SPACE_BETWEEN);
           // x,y,width,height
-          this.drawCell(x, y, board.getCellAt(row, col));
+          this.drawCell(x, y, board.getCellAt(new Location(row, col)));
         }
       }
     }

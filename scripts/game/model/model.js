@@ -33,12 +33,12 @@ class Model {
     return uncoveredMineFields.length > 0;
   }
 
-  toggleFlagAt(row, column) {
-    this.board.toggleFlagAt(row, column);
+  toggleFlagAt(location) {
+    this.board.toggleFlagAt(location);
   }
 
-  selectCellAt(row, column) {
-    this.board.selectCellAt(row, column);
+  selectCellAt(location) {
+    this.board.selectCellAt(location);
   }
 
   uncoverAllCells() {

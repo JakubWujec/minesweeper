@@ -2,13 +2,19 @@
 const MINE_VALUE = -1
 
 class Cell {
-  constructor(row, col, value = 0) {
-    this.row = row;
-    this.col = col;
+  #location;
+
+  constructor(location, value = 0) {
+    this.#location = location
     this.value = value; // 0-8 mines around, -1 mine
     this.flagged = false;
     this.covered = true;
   }
+
+  get row() { return this.#location.x };
+  get column() { return this.#location.y }
+  get location() { return this.#location; }
+  set location(newLocation) { this.#location = newLocation }
 
   hasMine() {
     return this.value === MINE_VALUE;

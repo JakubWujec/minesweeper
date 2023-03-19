@@ -1,5 +1,4 @@
-import Cell from "./cell";
-
+import Location from "../controller/location";
 class Board {
   #cells;
 
@@ -13,9 +12,10 @@ class Board {
     return this.#cells;
   }
 
-  getCellAt(row, col) {
+  getCellAt(location) {
+    let [row, col] = [location.x, location.y]
     if (row >= 0 && row < this.rows && col >= 0 && col < this.cols) {
-      return this.cells.find(cell => cell.row === row && cell.col === col);
+      return this.cells.find(cell => cell.row === row && cell.column === col);
     }
     return null
   }
@@ -40,25 +40,25 @@ class Board {
     return this.cells.filter(cell => cell.isFlagged() && cell.isCovered());
   }
 
-  toggleFlagAt(row, column) {
-    this.getCellAt(row, column).toggleFlag();
+  toggleFlagAt(location) {
+    this.getCellAt(location).toggleFlag();
   }
 
 
-  selectCellAt(row, col) {
-    let selectedCell = this.getCellAt(row, col);
+  selectCellAt(location) {
+    let selectedCell = this.getCellAt(location);
     if (selectedCell && !selectedCell.isFlagged() && selectedCell.isCovered()) {
       selectedCell.uncover();
       if (!selectedCell.hasMine()) {
         this.uncoverUnarmedNeighbours(selectedCell);
       }
     } else {
-      console.log(`no selected cell: row ${row}, col ${col}`)
+      console.log(`no selected cell: row ${location.x}, col ${location.y}`)
     }
   }
 
-  uncoverCellAt(x, y) {
-    let cellToUncover = this.getCellAt(x, y);
+  uncoverCellAt(location) {
+    let cellToUncover = this.getCellAt(location);
     cellToUncover.uncover();
     return cellToUncover;
   }
@@ -68,7 +68,8 @@ class Board {
     let visited = [cell];
     while (queue.length > 0) {
       let cell = queue.pop();
-      let coveredUnarmedNeighbours = this.getNeighboursOf(cell.row, cell.col).filter(cell => !cell.hasMine()).filter(cell => cell.isCovered());
+      let cellLocation = cell.location;
+      let coveredUnarmedNeighbours = this.getNeighboursOf(cellLocation).filter(cell => !cell.hasMine()).filter(cell => cell.isCovered());
       for (let neighbour of coveredUnarmedNeighbours) {
         if (!visited.includes(neighbour)) {
           neighbour.uncover();
@@ -83,14 +84,15 @@ class Board {
 
 
 
-  getNeighboursOf(row, col) {
+  getNeighboursOf(location) {
+    let [row, col] = [location.x, location.y]
     let neighbours = [];
     for (let i of [-1, 0, 1]) {
       for (let j of [-1, 0, 1]) {
         let newRow = row + parseInt(i);
         let newCol = col + parseInt(j);
         if ((0 <= newRow < this.rows) && (0 <= newCol < this.cols) && !(row === newRow && col === newCol)) {
-          neighbours.push(this.getCellAt(newRow, newCol));
+          neighbours.push(this.getCellAt(new Location(newRow, newCol)));
         }
       }
     }

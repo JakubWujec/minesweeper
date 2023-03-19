@@ -1,6 +1,7 @@
 import Model from "../model/model";
 import View from "../view/view"
 import SettingsController from "./settingsController";
+import Location from "./location";
 class Controller {
   constructor(model, view) {
     this.model = model;
@@ -34,9 +35,9 @@ class Controller {
 
   handleCanvasRightClick(event) {
     event.preventDefault();
-    let location = this.view.getRowAndColOfClick(event);
+    let location = this.view.getLocationOfClick(event);
     if (location) {
-      this.model.toggleFlagAt(...location);
+      this.model.toggleFlagAt(location);
       this.rerenderView();
     }
 
@@ -45,13 +46,12 @@ class Controller {
   handleCanvasClick(event) {
     console.log(event);
     if (!this.model.isGameFinished()) {
-      let location = this.view.getRowAndColOfClick(event);
-      console.log(location);
+      let location = this.view.getLocationOfClick(event);
       if (location !== null) {
         if (this.flagMode) {
-          this.model.toggleFlagAt(...location);
+          this.model.toggleFlagAt(location);
         } else {
-          this.model.selectCellAt(...location);
+          this.model.selectCellAt(location);
         }
       }
 
