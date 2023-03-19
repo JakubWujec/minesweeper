@@ -29,9 +29,9 @@ class BoardFactory {
 
   prepareCells() {
     let cells = [];
-    for (let x = 0; x < this.rows; x++) {
-      for (let y = 0; y < this.columns; y++) {
-        cells.push(new Cell(new Location(x, y), 0))
+    for (let row = 0; row < this.rows; row++) {
+      for (let column = 0; column < this.columns; column++) {
+        cells.push(new Cell(new Location(row, column), 0))
       }
     }
     return cells;
@@ -50,9 +50,9 @@ class BoardFactory {
   }
 
   prepareNumbers(board) {
-    for (let x = 0; x < this.rows; x++) {
-      for (let y = 0; y < this.columns; y++) {
-        let location = new Location(x, y);
+    for (let row = 0; row < this.rows; row++) {
+      for (let column = 0; column < this.columns; column++) {
+        let location = new Location(row, column);
         let cell = board.getCellAt(location);
         if (!cell.hasMine()) {
           let neigh = board.getNeighboursOf(location).filter(cell => cell.hasMine());

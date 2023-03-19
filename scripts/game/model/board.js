@@ -102,10 +102,10 @@ class Board {
 
 
   logCells(showAll = false) {
-    for (let x = 0; x < this.rows; x++) {
+    for (let row = 0; row < this.rows; row++) {
       let str = ' ';
-      for (let y = 0; y < this.columns; y++) {
-        let cell = this.getCellAt(x, y);
+      for (let column = 0; column < this.columns; column++) {
+        let cell = this.getCellAt(new Location(row, column));
         str += ' ' + (showAll ? cell.value : cell.isCovered() ? 'A' : cell.value);
       }
       console.log(str);
