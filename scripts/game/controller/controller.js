@@ -3,12 +3,20 @@ import View from "../view/view"
 import SettingsController from "./settingsController";
 import Location from "./location";
 class Controller {
-  constructor(model, view) {
-    this.model = model;
-    this.view = view;
+  constructor() {
+    this.model = null;
+    this.view = null;
 
     this.settingsController = new SettingsController();
+    this.flagMode = false;
+  }
 
+  bindView(view) {
+    if (this.view) {
+      this.view.untrackAllEventListeners();
+      delete this.view;
+    }
+    this.view = view;
     this.view.bindToggleFlagAt(this.handleToggleFlagAt.bind(this))
     this.view.bindUncoverAt(this.handleUncoverAt.bind(this));
     this.view.bindToggleFlagMode(this.handleToggleFlagMode.bind(this));
@@ -16,8 +24,6 @@ class Controller {
     this.view.bindSaveSettings(this.handleSaveSettings.bind(this));
     this.view.bindSettingsButtonClicked(this.handleSettingsButtonClick.bind(this));
     this.view.bindDifficultyLevelElementClicked(this.handleDifficultyLevelClick.bind(this));
-
-    this.flagMode = false;
   }
 
   get levelSettings() {
@@ -90,15 +96,14 @@ class Controller {
   }
 
   handleStartGame() {
-    let settings = this.getSettings();
-    this.model = new Model(settings);
-    this.view = new View(settings.rows, settings.columns);
     this.setFlagModeOff();
     this.rerenderView();
   }
 
   handleSaveSettings(settings) {
     this.settingsController.settings = settings;
+    this.model = new Model(settings);
+    this.bindView(new View(settings));
     this.handleStartGame();
   }
 
@@ -119,6 +124,13 @@ class Controller {
   }
 }
 
-let app = new Controller(new Model(8, 8, 10), new View(8, 8));
-app.handleStartGame(8, 8, 10);
+let app = new Controller();
+let settings = {
+  rows: 8,
+  columns: 8,
+  mines: 10
+}
+app.model = new Model(settings);
+app.bindView(new View(settings));
+app.handleStartGame();
 

@@ -1,18 +1,19 @@
 import Location from "../controller/location";
 
 class View {
-  constructor(rows = 8, columns = 8) {
-    this.ROWS = rows;
-    this.COLUMNS = columns;
+  constructor(settings) {
+    this.ROWS = settings.rows;
+    this.COLUMNS = settings.columns;
     this.BLOCK_SIZE = 20;
     this.SPACE_BETWEEN = 4;
 
     this.canvas = document.querySelector('#canvas');
     this.ctx = this.canvas.getContext('2d');
+    this.trackedListeners = [];
 
     this.setCanvasSize(
-      this.calculateRequiredCanvasLength(columns), // width
-      this.calculateRequiredCanvasLength(rows), // height
+      this.calculateRequiredCanvasLength(this.COLUMNS), // width
+      this.calculateRequiredCanvasLength(this.ROWS), // height
     );
 
     this.saveSettingsButton = document.querySelector('.modal__save');
@@ -28,12 +29,37 @@ class View {
     this.minesModalInput = document.querySelector('#input-mines');
     this.difficultiesElements = document.querySelectorAll('.modal__difficulty');
 
-    this.closeModalButton.addEventListener('click', () => {
+    this.bindModalToggle();
+
+  }
+
+  bindModalToggle() {
+    this.addEventListener(this.closeModalButton, 'click', () => {
       this.closeSettingsModal();
     })
-    this.backdrop.addEventListener('click', () => {
+
+    this.addEventListener(this.backdrop, 'click', () => {
       this.closeSettingsModal();
     })
+  }
+
+  addEventListener(element, type, listener) {
+    element.addEventListener(type, listener);
+    this.trackEventListener(element, type, listener);
+  }
+
+  untrackAllEventListeners() {
+    for (let { element, type, listener } of this.trackedListeners) {
+      if (element) {
+        element.removeEventListener(type, listener, { capture: true })
+        element.removeEventListener(type, listener, { capture: false })
+      }
+    }
+    this.trackedListeners = [];
+  }
+
+  trackEventListener(element, type, listener) {
+    this.trackedListeners.push({ element, type, listener })
   }
 
   setCanvasSize(width, height) {
@@ -207,15 +233,15 @@ class View {
   }
 
   bindToggleFlagMode(handler) {
-    this.flagButton.addEventListener('click', handler);
+    this.addEventListener(this.flagButton, 'click', handler);
   }
 
   bindStartGame(handler) {
-    this.startGameButton.addEventListener('click', handler);
+    this.addEventListener(this.startGameButton, 'click', handler);
   }
 
   bindSaveSettings(handler) {
-    this.saveSettingsButton.addEventListener('click', event => {
+    this.addEventListener(this.saveSettingsButton, 'click', event => {
       let startFormValues = this.getSettingsModalValues();
       handler(startFormValues);
       this.closeSettingsModal();
@@ -227,7 +253,7 @@ class View {
       event.preventDefault();
       handler(this.getLocationOfClick(event));
     }
-    this.canvas.addEventListener('click', _handler)
+    this.addEventListener(this.canvas, 'click', _handler);
   }
 
   bindToggleFlagAt(handler) {
@@ -235,18 +261,18 @@ class View {
       event.preventDefault();
       handler(this.getLocationOfClick(event));
     }
-    this.canvas.addEventListener('contextmenu', _handler)
+    this.addEventListener(this.canvas, 'contextmenu', _handler);
   }
 
   bindSettingsButtonClicked(handler) {
-    this.settingsButton.addEventListener('click', handler);
+    this.addEventListener(this.settingsButton, 'click', handler);
   }
 
   bindDifficultyLevelElementClicked(handler) {
     for (let difficultyElement of this.difficultiesElements) {
-      difficultyElement.addEventListener('click', () => {
+      this.addEventListener(difficultyElement, 'click', () => {
         handler(difficultyElement.textContent);
-      });
+      })
     }
   }
 
