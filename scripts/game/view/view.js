@@ -203,6 +203,21 @@ class View {
     }
   }
 
+  drawExplodedMine(x, y) {
+    let drawX = x + 0.1 * this.BLOCK_SIZE
+    let drawY = y + 0.1 * this.BLOCK_SIZE
+    try {
+      let mineImage = new Image();
+      mineImage.src = '../../../assets/images/mine2.png';
+      this.ctx.fillStyle = "red";
+      this.ctx.fillRect(x, y, this.BLOCK_SIZE, this.BLOCK_SIZE);
+      this.ctx.drawImage(mineImage, drawX, drawY, 0.8 * this.BLOCK_SIZE, 0.8 * this.BLOCK_SIZE);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+
   openSettingsModal() {
     this.modal.classList.add("open");
     this.backdrop.classList.add("open");
