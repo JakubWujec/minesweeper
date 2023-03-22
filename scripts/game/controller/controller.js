@@ -26,6 +26,10 @@ class Controller {
     this.view.bindDifficultyLevelElementClicked(this.handleDifficultyLevelClick.bind(this));
   }
 
+  bindModel(model) {
+    this.mode = model;
+  }
+
   get levelSettings() {
     return this.settingsController.levelSettings;
   }
@@ -102,7 +106,7 @@ class Controller {
 
   handleSaveSettings(settings) {
     this.settingsController.settings = settings;
-    this.model = new Model(settings);
+    this.bindModel(new Model(settings));
     this.bindView(new View(settings));
     this.handleStartGame();
   }
@@ -130,7 +134,8 @@ let settings = {
   columns: 8,
   mines: 10
 }
-app.model = new Model(settings);
+
+app.bindModel(new Model(settings));
 app.bindView(new View(settings));
 app.handleStartGame();
 
