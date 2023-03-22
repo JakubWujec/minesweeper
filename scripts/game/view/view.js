@@ -166,7 +166,10 @@ class View {
       if (cell.isCovered() && cell.isFlagged()) {
         this.drawFlag(x, y);
       } else if (!cell.isCovered()) {
-        if (cell.hasMine()) {
+        if (cell.hasMine() && cell.isFlagged()) {
+          this.drawExplodedMine(x, y);
+        }
+        else if (cell.hasMine()) {
           this.drawMine(x, y);
         } else {
           if (cell.value > 0) {

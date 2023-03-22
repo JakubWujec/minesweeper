@@ -100,14 +100,15 @@ class Controller {
   }
 
   handleStartGame() {
+    let settings = this.getSettings();
+    this.bindModel(new Model(settings));
+    this.bindView(new View(settings));
     this.setFlagModeOff();
     this.rerenderView();
   }
 
   handleSaveSettings(settings) {
     this.settingsController.settings = settings;
-    this.bindModel(new Model(settings));
-    this.bindView(new View(settings));
     this.handleStartGame();
   }
 
