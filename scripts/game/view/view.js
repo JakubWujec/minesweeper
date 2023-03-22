@@ -167,7 +167,7 @@ class View {
         this.drawFlag(x, y);
       } else if (!cell.isCovered()) {
         if (cell.hasMine() && cell.isFlagged()) {
-          this.drawExplodedMine(x, y);
+          this.drawFlaggedMine(x, y);
         }
         else if (cell.hasMine()) {
           this.drawMine(x, y);
@@ -215,6 +215,30 @@ class View {
       this.ctx.fillStyle = "red";
       this.ctx.fillRect(x, y, this.BLOCK_SIZE, this.BLOCK_SIZE);
       this.ctx.drawImage(mineImage, drawX, drawY, 0.8 * this.BLOCK_SIZE, 0.8 * this.BLOCK_SIZE);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  drawFlaggedMine(x, y) {
+    let drawX = x + 0.1 * this.BLOCK_SIZE
+    let drawY = y + 0.1 * this.BLOCK_SIZE
+    try {
+      let mineImage = new Image();
+      mineImage.src = '../../../assets/images/mine2.png';
+      this.ctx.drawImage(mineImage, drawX, drawY, 0.8 * this.BLOCK_SIZE, 0.8 * this.BLOCK_SIZE);
+
+      this.ctx.strokeStyle = 'red';
+      this.ctx.beginPath();
+      this.ctx.moveTo(x, y);
+      this.ctx.lineTo(x + this.BLOCK_SIZE, y + this.BLOCK_SIZE);
+      this.ctx.stroke();
+
+      this.ctx.beginPath();
+      this.ctx.moveTo(x + this.BLOCK_SIZE, y);
+      this.ctx.lineTo(x, y + this.BLOCK_SIZE);
+      this.ctx.stroke();
+
     } catch (error) {
       console.log(error);
     }
