@@ -27,7 +27,7 @@ class Controller {
   }
 
   bindModel(model) {
-    this.mode = model;
+    this.model = model;
   }
 
   get levelSettings() {
