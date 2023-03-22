@@ -40,10 +40,7 @@ class Cell {
   }
 
   isFlagged() {
-    if (this.isCovered()) {
-      return this.flagged;
-    }
-    return false;
+    return this.flagged;
   }
 }
 

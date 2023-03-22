@@ -46,7 +46,7 @@ test('Board flag toggle', () => {
   let bf = new BoardFactory({ rows: 2, columns: 2, mines: 1 })
   let board = bf.prepare();
   let location = new Location(0, 0);
-
+  console.log("XXX", board.getCellAt(location))
   expect(board.getCellAt(location).isFlagged()).toBe(false);
 
   board.toggleFlagAt(location);
