@@ -202,9 +202,28 @@ class View {
 
   drawMine(x, y) {
     try {
-      let mineImage = new Image();
-      mineImage.src = '../../../assets/images/mine2.png';
-      this.ctx.drawImage(mineImage, x + 0.1 * this.BLOCK_SIZE, y + 0.1 * this.BLOCK_SIZE, 0.8 * this.BLOCK_SIZE, 0.8 * this.BLOCK_SIZE);
+      // draw black circle
+      this.ctx.fillStyle = 'black';
+      const circle = new Path2D();
+      circle.arc(x + this.BLOCK_SIZE / 2, y + this.BLOCK_SIZE / 2, 0.3 * this.BLOCK_SIZE, 0, 2 * Math.PI);
+      this.ctx.fill(circle);
+      // draw + lines
+      this.ctx.beginPath();
+      this.ctx.moveTo(x + this.BLOCK_SIZE / 2, y + 0.1 * this.BLOCK_SIZE);
+      this.ctx.lineTo(x + this.BLOCK_SIZE / 2, y + 0.9 * this.BLOCK_SIZE);
+      this.ctx.stroke();
+
+      this.ctx.beginPath();
+      this.ctx.moveTo(x + 0.1 * this.BLOCK_SIZE, y + this.BLOCK_SIZE / 2);
+      this.ctx.lineTo(x + 0.9 * this.BLOCK_SIZE, y + this.BLOCK_SIZE / 2);
+      this.ctx.stroke();
+
+      // draw white detail
+      this.ctx.fillStyle = 'white';
+      const circle2 = new Path2D();
+      circle2.arc(x + 0.4 * this.BLOCK_SIZE, y + 0.4 * this.BLOCK_SIZE, 0.075 * this.BLOCK_SIZE, 0, 2 * Math.PI);
+      this.ctx.fill(circle2);
+
     } catch (error) {
       console.log(error);
     }
@@ -221,8 +240,6 @@ class View {
   }
 
   drawFlaggedMine(x, y) {
-    let drawX = x + 0.1 * this.BLOCK_SIZE
-    let drawY = y + 0.1 * this.BLOCK_SIZE
     try {
       this.drawMine(x, y);
 
