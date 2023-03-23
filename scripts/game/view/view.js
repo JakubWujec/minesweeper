@@ -126,7 +126,7 @@ class View {
     return null;
   }
 
-  displayBoard(board) {
+  displayBoard(board, explodedMineLocation) {
     if (this.canvas.getContext) {
       // set fill and stroke styles
       this.ctx.fillStyle = 'gray';
@@ -138,7 +138,11 @@ class View {
           let x = this.SPACE_BETWEEN + column * (this.BLOCK_SIZE + this.SPACE_BETWEEN);
           let y = this.SPACE_BETWEEN + row * (this.BLOCK_SIZE + this.SPACE_BETWEEN);
           // x,y,width,height
-          this.drawCell(x, y, board.getCellAt(new Location(row, column)));
+          if (explodedMineLocation && explodedMineLocation.equals(new Location(row, column))) {
+            this.drawExplodedMine(x, y);
+          } else {
+            this.drawCell(x, y, board.getCellAt(new Location(row, column)));
+          }
         }
       }
     }

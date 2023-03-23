@@ -56,7 +56,7 @@ class Controller {
       if (this.model.isGameWon()) {
         this.handleGameWon();
       } else if (this.model.isGameLost()) {
-        this.handleGameLost();
+        this.handleGameLost(location);
       }
     }
 
@@ -70,11 +70,10 @@ class Controller {
     this.handleLocationSelected(location, true);
   }
 
-
-  handleGameLost() {
+  handleGameLost(explodedMineLocation) {
     this.model.uncoverAllCells();
     this.view.alertOnGameLost();
-    this.rerenderView();
+    this.view.displayBoard(this.model.board, explodedMineLocation);
   }
 
   handleGameWon() {

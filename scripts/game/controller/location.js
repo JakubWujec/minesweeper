@@ -17,6 +17,10 @@ class Location {
   toString() {
     return `{row: ${this.row}, column: ${this.column}}`
   }
+
+  equals(location) {
+    return location.row === this.row && location.column === this.column;
+  }
 }
 
 export default Location;
