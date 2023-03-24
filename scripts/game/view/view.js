@@ -34,16 +34,16 @@ class View {
   }
 
   bindModalToggle() {
-    this.addEventListener(this.closeModalButton, 'click', () => {
+    this.addTrackedEventListener(this.closeModalButton, 'click', () => {
       this.closeSettingsModal();
     })
 
-    this.addEventListener(this.backdrop, 'click', () => {
+    this.addTrackedEventListener(this.backdrop, 'click', () => {
       this.closeSettingsModal();
     })
   }
 
-  addEventListener(element, type, listener) {
+  addTrackedEventListener(element, type, listener) {
     element.addEventListener(type, listener);
     this.trackEventListener(element, type, listener);
   }
@@ -290,15 +290,15 @@ class View {
   }
 
   bindToggleFlagMode(handler) {
-    this.addEventListener(this.flagButton, 'click', handler);
+    this.addTrackedEventListener(this.flagButton, 'click', handler);
   }
 
   bindStartGame(handler) {
-    this.addEventListener(this.startGameButton, 'click', handler);
+    this.addTrackedEventListener(this.startGameButton, 'click', handler);
   }
 
   bindSaveSettings(handler) {
-    this.addEventListener(this.saveSettingsButton, 'click', event => {
+    this.addTrackedEventListener(this.saveSettingsButton, 'click', event => {
       let startFormValues = this.getSettingsModalValues();
       handler(startFormValues);
       this.closeSettingsModal();
@@ -310,7 +310,7 @@ class View {
       event.preventDefault();
       handler(this.getLocationOfClick(event));
     }
-    this.addEventListener(this.canvas, 'click', _handler);
+    this.addTrackedEventListener(this.canvas, 'click', _handler);
   }
 
   bindToggleFlagAt(handler) {
@@ -318,16 +318,16 @@ class View {
       event.preventDefault();
       handler(this.getLocationOfClick(event));
     }
-    this.addEventListener(this.canvas, 'contextmenu', _handler);
+    this.addTrackedEventListener(this.canvas, 'contextmenu', _handler);
   }
 
   bindSettingsButtonClicked(handler) {
-    this.addEventListener(this.settingsButton, 'click', handler);
+    this.addTrackedEventListener(this.settingsButton, 'click', handler);
   }
 
   bindDifficultyLevelElementClicked(handler) {
     for (let difficultyElement of this.difficultiesElements) {
-      this.addEventListener(difficultyElement, 'click', () => {
+      this.addTrackedEventListener(difficultyElement, 'click', () => {
         handler(difficultyElement.textContent);
       })
     }
