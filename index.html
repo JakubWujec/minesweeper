@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>The Minesweeper</title>
+
+    
+
+    
+    <script type="module" crossorigin src="/minesweeper/assets/index-6fc27f3f.js"></script>
+    <link rel="stylesheet" href="/minesweeper/assets/index-2a5ecaeb.css">
+  </head>
+
+  <body>
+    <div class="backdrop"></div>
+
+    <div class="modal">
+      <div class="modal__header">
+        <div class="modal__title">Settings</div>
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABmJLR0QA/wD/AP+gvaeTAAACVklEQVRYha2WwW7TQBCG/xm3UjlGohEgxbG9EfQQxIEHoE1Sjpx5C56GB6EnpNJEcIYDKggqSKwkCFBaKSfEgXiHQ5to69jbtZ25eb3O93kn4xkgFZEf9cIwfJRerxqqodqqGfSVUnVznc2L0A8PifQRaxko33+8KXgQBHvg5BjAAS2St81m8+7yHplwJnkF4NbV0hyiD4eTyYeqcE8wAHDHgH79B+mMx+NflANfRiWJLHhagiI/6hHpowz4VciFZu7FcfyxCFw1VBucnACoW7YNWDyZApjn76HbRf8TRs5t8HNJ+MVlCsLwAWvpA7hnecApHbZjT8G7ox+jUwaAOI7PNFMHwE/LQzUQH9tOwhE+W8IBowzjOD4Tjw/KSrjCob0VHDDKcBlRFN2nRA9QIB1F4MPp8JO5uCZQVCJh/lMWnisAuL6VXAAkAHZtcBLd+T6ZfM66mSsAOJ+ELXLf3EmgosSNcCeBkhJOcGeBghLOcCDVjm2htWbH/dsC2XH9XacTcKxzM+ai+eloOnpfWaAEfCXh0jusAhXgzhK5OVUN1fYE726AzwD8ttyvgei1bcbMFDD6ufULB+11NdM+rA3MPk+spaBMY6kyT1wTqNLVykqsBKrAq0jQpuBlJch1hoP2Oq6f1yIS7Ale3gCfFYEDl+MdQ3qwl+iOYKvGtL31HITTnE3nknCvCHwZ38bjL+LxE2SX6F8RfjaajN4QALRarV1ZLE4geJiCXxsgy0RGF13BAaMKUhIbgWdI1Ez4Wiil6qoZ9FVDtTcBNiMIgr3I97vp9f+7OaMydLqqZQAAAABJRU5ErkJggg==" class="modal__exit" />
+      </div>
+
+      <hr class="modal__line" />
+
+      <div class="modal__difficulties">
+        <p class="modal__difficulty">EASY</p>
+        <p class="modal__difficulty">MEDIUM</p>
+        <p class="modal__difficulty">HARD</p>
+      </div>
+
+      <div class="modal__properties">
+        <div class="modal__property">
+          <label for="input-rows"> Rows </label>
+          <input
+            id="input-rows"
+            type="number"
+            placeholder="8"
+            min="4"
+            max="99"
+          />
+        </div>
+
+        <div class="modal__property">
+          <label for="input-columns"> Columns </label>
+          <input
+            id="input-columns"
+            type="number"
+            placeholder="8"
+            min="4"
+            max="99"
+          />
+        </div>
+
+        <div class="modal__property">
+          <label for="input-mines">Mines</label>
+          <input
+            id="input-mines"
+            type="number"
+            placeholder="10"
+            min="1"
+            max="99"
+          />
+        </div>
+      </div>
+
+      <div class="modal__save-container">
+        <button class="modal__save">Save</button>
+      </div>
+    </div>
+    <!-- end of modal-->
+
+    <div class="game-window">
+      <h2>Minesweeper</h2>
+
+      <div class="top-bar">
+        <button class="start-button">New game</button>
+        <button id="flag-button">
+          <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAFHElEQVRYR8WXW2tkRRDH/1XV58xMLiRx2SC4qHjBxdt6S2QNCgq+qOCbL4qg4gX8Ir6Jz34BfRFWEV/WB2X3QUWMKy5KMibZaNbVzd6SzJw53VUlfUYEBdfM7hJ75jA9nL78urqq69+E/7nQtZr/IeC3HhA3QGcvwA/tdty/Abzz+BPnZ3q99iS791OvHGt16lYKbhGciN3I3UkJMOSHQWBjBRgoSl1nqd46/vm5n4FVR3pqNxB/Azgy/0j/puSQSxeDI6JdlJZ2IrfLcY1EcMAJCQTLD5ETxJkUgbYMOD27T9/44ujaOknXXZ8eGeDTB+arAxd6st/cVfvuSb1TjHk1SO5FCcBdXMGuuZ7XDbYAJcaACqzMzhTPL3620iUswfHMyABHFx69NLv++9hsTGmyU3isB27KTqHwgXs2gAfLAOZE+S+InUEuaJdj9BVb8craidWlgB814dmRAd6/9744l4q0f6dCb2vTxzttSwgWHa4iTjAP5s6eHJS/BHImNiYkw+r117We+/7LUz8QfnS/AoAj84e379qsZHan8oBkDvPIoonIlSQv2cSTiVue3YEMINk5coWWpsdbL5xc3OgSuskxug9kgHvONgAmlNyhVjcA7EqcATSYKZGqkVsGYGd2ECVWWp4Zb7904sTmCrAagSdH3oIP5x/evnuz4v07lTNFU5gnZkscrIkARxJoAiym7AggBGVSIqoLp+7UxNiri99unQJ+HgCPjQzw0dz8zl3n+hnASKKn4RaYgXPA5WMgiWttZCkK1KkB8ByQAwF3pycmX/9msVoDfqmBwyMDfPzQXO/OcxXN9CtHBiB1peAAuxgrOxK5RmNLdQYAeaGSraN1IFqemph67dtv0iqwUQNzIwN88uB87+D5imeqyjVEZABHcDK24GxiSARNSkgD8WwBK5MkAmnNQHd6Yvrl7772FeB0BO6/AoDDG3dc6O+bqvohhaQKM0BMTLzUDJBPIEvGiIPgyZytpWRipMbA8vTE1Isnv/Il4EwC7hkZ4IOHF44d2K5vn6yrtompwYyNjF28aADyGWw5AtJAoABRYRzImZVITk2Ojb25eExXgbM1cHBkgNzhvYWFdwu1KU2xHYi8xYVBXchy3ANMZNFVqAjiRJ0U44xLazyW7YnT7mNvHz+aNoGL28CtVwSwm07/bHMIOBOBsgDTr7BUAdsXgZt3M9Y10QOzwLoAbQN4AFgF9Crgpj0DKIC1qSBFlVSI4T1DpXtpAQZ+AtBqkkPO0YTKFbfsmQUAdBFQQsBIjaf2Ef22PQMgwbITWnlqePOpYNg7ADC6YLQb40sw1FrB99ACXMiaqWWArFVdiHvqupc+wGcAFMIMNzMCBgq74ep9gORXAAIRgiojaw9mQ0pMQdyjNrpUhHOOEkEWR26CEBPUQGzJLUdGI+GypgRxTjEJNjwnLnMQ8UZRlmWMsZW1aLMapmYMUL4aDH9FBJYiF3n7GwB4noFI8pE9lK65X2A0WgakcI8wVAAO/CuAAL8Q0MmmzfMwM8xyWmhQnPN4+XowXAUNwz/P1iBmvdbUOQhMs4wfFikK1Tpqp9O51O/3b/5XgKK53aBDQNFsw3BAlGWwqk5Nv7IdbFAlDoHdNUtYJ5HgUROByeFOxPlddoucLAqLMToByYGBAzdeNheUIktJNQPkBXohorUqE5OBaOhvwxEa2/9VmtZ/miY30OYS0zgBA9Zutftbg+re//CB3fjw1be5JtnwajD+ABZc/z9qvHWKAAAAAElFTkSuQmCC" />
+        </button>
+        <div class="mines-counter">
+          <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAADkElEQVRYR8VX74sjRRCtrprumey6xwkKoqCI+P//NX7xi6KHrKB3nKuXTP+oktfXvUyym0ySO7RhSZbp6Xr16vWriqP/ebkr40cicsysqjpeeUZ97VoAeQHA/2cARGQupQiCi4iVUmgYhpxzLkR0ew2QSxiIzjkehoFSStyCGRGZiKRSSnbO7czs80uArAIIIbyNMU78vuAIXN8BEDBgZgChzrliZklEtqWURERfnQNkDcADEaHG4r13yJyZSUTAAuE74jcQ1kCAiQQwRLTKxikAb5xzIzMPZiaqirrXrPGpqjV4X87Vo4ClMHNR1dKAfHqKiWMA7pl5Y2aTmQ2g3Xtfs8Zafn/m8KoLlIWIcFsg0LtjII4BeC0iYyklMDOyr++j7lg541yqJejPjgBBcBWRWEp58RyI5wC8aoin4f0dcwg8z3MNiIWg4zg+AjlBsU3TlHa7HbZMZwFg5ntV/YSZR1UV1BbUo+7LBS2gFEsdHAFi0MQwDHOM8UkpDhn4SUTuSim33nvf73tTOjWh1aD43v8/JTJmNlXtmgiHew8B3Hvvb1JKoKtePWQK+lGGni0CQwcowwkN1FjYi6shItADDGvPMTuAH4johYjctOwHEeFWuxp8u93uiXCz2ZyjgUcAIQSNMVYQ4zg+zPP8ZQXYKPmRme/M7NbMNrBcM/hKRd8P2WOvPzvH7RZlyCGEbYwR16ia1CMDzPxSVSGSTbU7IrdG7znBwV7OuQpRVZP3/l1KCe28WvWhBv4OIfgYYzWfEALFiL0ftMx7n2HNaFYppc+Wp+0BEJG/VLU2nlJK73gfEh3qhyUDwExET2z5iREx805Vh9Z81prVGjhYKPx7ds69M7MqvKMMtAdbBAcIlKGUci0IZJ+REBFtVfWLs5ywg4APwO7b31qmh88r9S37LRHt1X2NAXj+W+ccmpCHhzSxnstEdz1Qv/PeP6SUvjmWwdFDmflPVYV1ohSdDew/9s6yDde6g/q1yWgtq9/bRNSB9NkA01FPCjaLARWUF+99TCnh85+U0tdrtVsDABf8WURCzvmGiDoQDKcOBtMHjzb9wDQwt0F0360Ff86ITr3zm4hMzrkgIrVT4lcJM0dVnZvDgfbvzwnc96wysDyMmX9VVXSzOqhi0oG75ZxR628vCXwVgEWAP6ZpstYtVyffU8AuYuARtXO/tGEVXW1VaB8dwDVUX+wDHzPIqbP+BW+m7jAlszdsAAAAAElFTkSuQmCC" />
+          <p id="mines-counter"></p>
+        </div>
+        <img src="/minesweeper/assets/settings-4c6528d0.png" class="settings-button" />
+      </div>
+
+      <div class="canvas-container">
+        <canvas id="canvas" class="canvas"></canvas>
+      </div>
+    </div>
+  </body>
+</html>
