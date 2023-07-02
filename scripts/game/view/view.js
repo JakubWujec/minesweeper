@@ -186,9 +186,26 @@ class View {
 
   drawFlag(x, y) {
     try {
-      let flagImage = new Image();
-      flagImage.src = './assets/images/flag1.png';
-      this.ctx.drawImage(flagImage, x + 0.1 * this.BLOCK_SIZE, y + 0.1 * this.BLOCK_SIZE, 0.8 * this.BLOCK_SIZE, 0.8 * this.BLOCK_SIZE);
+      // draw flag
+      this.ctx.fillStyle = 'red';
+      this.ctx.fillRect(x + 0.2 * this.BLOCK_SIZE, y + 0.2 * this.BLOCK_SIZE, 0.4 * this.BLOCK_SIZE, 0.3 * this.BLOCK_SIZE);
+
+      // draw pole
+      this.ctx.lineWidth = 2;
+      this.ctx.fillStyle = 'black';
+      this.ctx.beginPath();
+      this.ctx.moveTo(x + 0.55 * this.BLOCK_SIZE, y + 0.2 * this.BLOCK_SIZE);
+      this.ctx.lineTo(x + 0.55 * this.BLOCK_SIZE, y + 0.8 * this.BLOCK_SIZE);
+      this.ctx.stroke();
+
+      // draw base 
+      this.ctx.fillStyle = 'black';
+      this.ctx.beginPath();
+      this.ctx.moveTo(x + 0.2 * this.BLOCK_SIZE, y + 0.8 * this.BLOCK_SIZE);
+      this.ctx.lineTo(x + 0.8 * this.BLOCK_SIZE, y + 0.8 * this.BLOCK_SIZE);
+      this.ctx.stroke();
+
+      this.ctx.lineWidth = 1;
     } catch (error) {
       console.log(error);
     }
