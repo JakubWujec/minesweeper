@@ -1,7 +1,6 @@
 import Model from "../model/model";
 import View from "../view/view"
 import SettingsController from "./settingsController";
-import Location from "./location";
 class Controller {
   constructor() {
     this.model = null;
@@ -129,13 +128,5 @@ class Controller {
 }
 
 let app = new Controller();
-let settings = {
-  rows: 8,
-  columns: 8,
-  mines: 10
-}
-
-app.bindModel(new Model(settings));
-app.bindView(new View(settings));
 app.handleStartGame();
 
