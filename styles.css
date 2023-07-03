@@ -21,13 +21,12 @@ body{
 
 .game-window{
   background: lightgray;
-  width: 88%;
-  margin: auto;
+  margin: 0;
+  height: 100%;
+  padding: 1rem 1rem 2rem 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 1rem 1rem 2rem 1rem;
-
 }
 
 .top-bar{
@@ -157,4 +156,12 @@ body{
 
 .open{
   display: block !important;
+}
+
+
+@media screen and (min-width: 800px) {
+  .game-window {
+    width: 88%;
+    margin: auto;
+  }
 }
