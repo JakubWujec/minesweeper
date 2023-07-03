@@ -17,7 +17,7 @@ class View {
     );
 
     this.saveSettingsButton = document.querySelector('.modal__save');
-    this.startGameButton = document.querySelector('.start-button');
+    this.startGameButton = document.querySelector('#start-button');
     this.flagButton = document.getElementById('flag-button');
     this.minesCounterElement = document.getElementById('mines-counter');
     this.settingsButton = document.querySelector('.settings-button');
