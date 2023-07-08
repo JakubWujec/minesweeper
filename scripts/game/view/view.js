@@ -74,8 +74,29 @@ class View {
     return cellsInLine * (this.BLOCK_SIZE + this.SPACE_BETWEEN) + this.SPACE_BETWEEN;
   }
 
-  setMinesCounter(numerator, denominator) {
-    this.minesCounterElement.innerText = `Mines ${numerator} / ${denominator}`;
+  setMinesCounter(value) {
+    let stringToDisplay = this.prepareStringToDisplayMinesCounter(value);
+    let counterSegments = [...this.minesCounterElement.childNodes].filter(x => x.nodeName === 'IMG')
+
+    for (let i = 0; i < counterSegments.length; i++) {
+      let counterSegment = counterSegments[i]
+      let oldSrc = counterSegment.src;
+      if (oldSrc != null) {
+        let newSrc = `./assets/images/segment${stringToDisplay[i]}.png`
+        counterSegment.src = newSrc
+      }
+    }
+  }
+
+  prepareStringToDisplayMinesCounter(value, length = 3) {
+    let isNegative = value < 0;
+    let absoluteMinesLeft = Math.abs(value);
+
+    let stringToDisplay = absoluteMinesLeft.toString().padStart(length, '0');
+    if (isNegative) {
+      stringToDisplay = '-'.concat(stringToDisplay.slice(1))
+    }
+    return stringToDisplay
   }
 
   setFlagButtonOff() {

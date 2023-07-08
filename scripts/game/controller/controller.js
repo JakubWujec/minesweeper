@@ -39,7 +39,7 @@ class Controller {
 
   rerenderView() {
     this.view.displayBoard(this.model.board);
-    this.view.setMinesCounter(this.model.numberOfFlaggedCells, this.model.initialNumberOfMines);
+    this.view.setMinesCounter(this.model.initialNumberOfMines - this.model.numberOfFlaggedCells);
   }
 
   handleLocationSelected(location, flagMode) {
